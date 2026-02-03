@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cursor setup — learn & apply</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background: #f7f7f8;
+      color: #1a1a1a;
+    }
+    .container { max-width: 680px; margin: 0 auto; padding: 24px 16px 80px; }
+    .header { text-align: center; padding: 24px 0 16px; border-bottom: 1px solid #e5e5e5; }
+    .header h1 { font-size: 1.5rem; font-weight: 600; margin: 0 0 4px; }
+    .header p { font-size: 0.9rem; color: #6b6b6b; margin: 0; }
+    .thread { padding: 16px 0; }
+    .message { display: none; margin-bottom: 20px; animation: fadeIn 0.25s ease; }
+    .message.visible { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .bubble {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .bubble .label { font-size: 0.75rem; font-weight: 600; color: #8e8e93; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 8px; }
+    .bubble .title { font-size: 1.05rem; font-weight: 600; margin-bottom: 10px; color: #1a1a1a; }
+    .bubble .content { font-size: 0.95rem; line-height: 1.6; color: #3a3a3a; }
+    .bubble .content strong { font-weight: 600; color: #1a1a1a; }
+    .bubble .content a { color: #0066cc; text-decoration: none; }
+    .bubble .content a:hover { text-decoration: underline; }
+    .bubble .content br { display: block; content: ""; margin-top: 0.35em; }
+    .os-block { margin-top: 12px; padding: 12px; background: #f7f7f8; border-radius: 10px; font-size: 0.9rem; }
+    .os-block strong { display: block; margin-bottom: 6px; color: #1a1a1a; }
+    .actions { margin-top: 16px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 20px; font-size: 0.9rem; font-weight: 500; border-radius: 10px;
+      border: none; cursor: pointer; background: #1a1a1a; color: #fff;
+      transition: background 0.15s;
+    }
+    .btn:hover { background: #333; }
+    .btn:disabled { opacity: 0.6; cursor: default; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Cursor setup</h1>
+      <p>Step by step — learn and apply as you go</p>
+    </header>
+    <div class="thread" id="thread"></div>
+  </div>
+  <script>
+    const steps = [
+      { title: "Welcome", body: "Let's get Cursor on your machine and verify it works. We'll do this step by step — you do each part, then tap **Next** when you're ready.\n\nIf your company blocks installs or SSO, reach **#ask-it** on Slack first." },
+      { title: "Check prerequisites", body: "Before downloading, confirm:\n\n• **OS:** macOS, Windows, or Linux\n• **Access:** Admin/sudo (or Windows User install)\n• **Internet:** Required (Cursor uses cloud AI)\n• **RAM:** 8 GB min, 16 GB recommended for large codebases\n• **Account:** GitHub or work account for sign-in" },
+      { title: "Download Cursor", body: "Download the installer for your OS:\n\n**cursor.com** or **cursor.com/downloads**\n\nChoose your OS and architecture (e.g. Mac ARM64 for Apple Silicon, Windows User if you don't have admin).", links: [{ href: "https://cursor.com", text: "cursor.com" }, { href: "https://cursor.com/downloads", text: "cursor.com/downloads" }] },
+      { title: "Install Cursor", body: "Follow the steps for your OS below.", osBlocks: true },
+      { title: "Sign in", body: "In Cursor: sign in with your work email or SSO (per company policy).\n\nIf sign-in fails or loops, try **Sign out** then sign in again, or reach **#ask-it**." },
+      { title: "Verify AI works", body: "Quick smoke test:\n\n1. Open any file in Cursor (e.g. a .md).\n2. Open **Chat** (sidebar or Cmd/Ctrl+Shift+L).\n3. Ask: _Summarize the first paragraph._\n\nYou should get a short reply. If not, see troubleshooting → AI features or **#ask-it**." },
+      { title: "Read the mental model", body: "One last step: read **Mental model: how to think with Cursor** (verify, validate, guardrails).\n\nIt's in your repo at docs/mental-model.md. It explains when to trust Cursor and when to double-check." },
+      { title: "You're set", body: "Setup is complete. Next:\n\n• **Troubleshooting** — docs/troubleshooting.md\n• **Mental model** — when to trust / double-check\n• **Example workflows** — examples/\n• **Prompts** — docs/prompts.md\n\nNeed help? **#ask-it** on Slack.", last: true }
+    ];
+
+    const osBlocks = {
+      macos: "**macOS:** Open the .dmg and drag Cursor to Applications. Open from Applications or Spotlight. If macOS says \"unidentified developer\", go to System Settings → Privacy & Security and allow Cursor. On first launch, grant any requested permissions (e.g. Accessibility).",
+      windows: "**Windows:** Run the installer (User = no admin, System = admin). Complete the steps. Launch Cursor from the Start menu or desktop shortcut. If policy blocks install, reach **#ask-it** on Slack.",
+      linux: "**Linux:** .deb: sudo dpkg -i cursor*.deb (then sudo apt --fix-broken install if needed). .rpm: sudo rpm -i cursor*.rpm. .AppImage: chmod +x Cursor*.AppImage then run it (FUSE may be required). Launch from app menu or shell (cursor if in PATH)."
+    };
+
+    function render(text) {
+      if (!text) return "";
+      return text
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\*(.+?)\*/g, "<em>$1</em>")
+        .replace(/\n/g, "<br>");
+    }
+
+    const thread = document.getElementById("thread");
+    let current = 0;
+
+    function show(index) {
+      document.querySelectorAll(".message.visible").forEach(m => m.classList.remove("visible"));
+      const el = thread.querySelector(`[data-step="${index}"]`);
+      if (el) el.classList.add("visible");
+      current = index;
+    }
+
+    function buildStep(step, index) {
+      const div = document.createElement("div");
+      div.className = "message";
+      div.dataset.step = String(index);
+      let content = render(step.body);
+      if (step.links) {
+        content += "<br><br>";
+        content += step.links.map(l => `<a href="${l.href}" target="_blank" rel="noopener">${l.text}</a>`).join(" · ");
+      }
+      if (step.osBlocks) {
+        content += `<div class="os-block">${render(osBlocks.macos)}</div><div class="os-block">${render(osBlocks.windows)}</div><div class="os-block">${render(osBlocks.linux)}</div>`;
+      }
+      const total = steps.length;
+      const isLast = step.last || index === total - 1;
+      div.innerHTML = `
+        <div class="bubble">
+          <div class="label">Step ${index + 1} of ${total}</div>
+          <div class="title">${step.title}</div>
+          <div class="content">${content}</div>
+          <div class="actions">
+            <button class="btn" data-next>${isLast ? "Done" : "Next"}</button>
+          </div>
+        </div>
+      `;
+      div.querySelector("[data-next]").addEventListener("click", () => {
+        if (index < steps.length - 1) show(index + 1);
+      });
+      return div;
+    }
+
+    steps.forEach((step, i) => thread.appendChild(buildStep(step, i)));
+    show(0);
+  </script>
+</body>
+</html>

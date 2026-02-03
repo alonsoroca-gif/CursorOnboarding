@@ -1,0 +1,8 @@
+{
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/setup", "destination": "/docs/setup-chat.html" },
+    { "source": "/setup-chat", "destination": "/docs/setup-chat.html" }
+  ]
+}
