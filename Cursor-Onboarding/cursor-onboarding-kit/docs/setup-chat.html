@@ -118,8 +118,7 @@
         steps: [
           "Run the installer (User = no admin, System = admin).",
           "Complete the steps in the wizard.",
-          "Launch Cursor from the Start menu or desktop shortcut.",
-          "If policy blocks install, reach **#ask-it** on Slack."
+          "Launch Cursor from the Start menu or desktop shortcut; if policy blocks install, reach **#ask-it** on Slack."
         ]
       },
       linux: {
@@ -166,16 +165,15 @@
         </div>`;
       }
       if (step.osBlocks) {
-        ["macos", "windows", "linux"].forEach(key => {
+        const videoHtml = step.installVideo ? `<div class="install-video-wrap"><video class="install-video" controls preload="auto" autoplay muted playsinline loop>
+            <source src="screenshots/install-demo.mp4" type="video/mp4">
+            Your browser does not support the video tag.</video></div>` : "";
+        ["macos", "windows", "linux"].forEach((key, i) => {
           const block = osBlocks[key];
           const listItems = block.steps.map(s => `<li>${render(s)}</li>`).join("");
           content += `<div class="os-block"><strong>${block.label}</strong><ol class="os-steps">${listItems}</ol></div>`;
+          if (key === "macos" && videoHtml) content += videoHtml;
         });
-        if (step.installVideo) {
-          content += `<div class="install-video-wrap"><video class="install-video" controls preload="auto" autoplay muted playsinline loop>
-            <source src="screenshots/install-demo.mp4" type="video/mp4">
-            Your browser does not support the video tag.</video></div>`;
-        }
       }
       const total = steps.length;
       const isLast = step.last || index === total - 1;
