@@ -42,7 +42,7 @@
     .os-steps li { margin-bottom: 6px; line-height: 1.5; }
     .os-steps li:last-child { margin-bottom: 0; }
     .bubble .content code { font-size: 0.85em; background: #e8e8e8; padding: 2px 6px; border-radius: 4px; }
-    .actions { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .actions { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
       padding: 10px 20px; font-size: 0.9rem; font-weight: 500; border-radius: 10px;
@@ -114,7 +114,7 @@
       { title: "Download Cursor", body: "Choose your OS below to open the download page. Pick the right build (e.g. Mac ARM64 for Apple Silicon, Windows User if you don't have admin).", downloadButtons: true },
       { title: "Install Cursor", body: "Follow the steps for your OS below. Click your OS to open the install page if you haven't downloaded yet. Watch the short install walkthrough below.", osBlocks: true, installVideo: true, downloadButtons: true },
       { title: "Sign in", body: "In Cursor: sign in with your work email or SSO (per company policy).\n\nIf sign-in fails or loops, try **Sign out** then sign in again, or reach **#ask-it**." },
-      { title: "Verify AI works", body: "Quick smoke test:\n\n1. Download the example file below and open it in Cursor.\n2. Open **Chat** (sidebar or Cmd/Ctrl+Shift+L).\n3. Ask: _Summarize the first paragraph._\n\nYou should get a short reply. If not, see troubleshooting → AI features or **#ask-it**.", smokeTestFile: true },
+      { title: "Verify AI works", body: "Quick smoke test:\n\n1. Download the example file below, then open it in Cursor (File → Open, or drag the file into Cursor).\n2. Open **Chat** (sidebar or Cmd/Ctrl+Shift+L).\n3. Ask: _Summarize the first paragraph._\n\nYou should get a short reply. If not, see troubleshooting → AI features or **#ask-it**.", smokeTestFile: true },
       { title: "Read the mental model", body: "Read the mental model below — it’s how we expect you to think when using Cursor (verify, validate, guardrails).", mentalModel: true },
       { title: "You're set", body: "Setup is complete. Next:\n\n• **Troubleshooting** — docs/troubleshooting.md\n• **Mental model** — when to trust / double-check\n• **Example workflows** — examples/\n• **Prompts** — docs/prompts.md\n\nNeed help? **#ask-it** on Slack.", last: true }
     ];
