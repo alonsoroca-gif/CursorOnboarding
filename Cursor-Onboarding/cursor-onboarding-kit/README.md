@@ -120,8 +120,10 @@ To get a shareable URL for the step-by-step setup (e.g. for teammates who haven�
 
 1. Push this repo to GitHub.
 2. Go to [vercel.com](https://vercel.com), sign in, and **Add New Project**.
-3. Import the repo; leave build settings as default (no build command).
-4. Deploy. Your setup chat will be at **`https://your-project.vercel.app/docs/setup-chat.html`** or **`/setup-chat`**.
+3. Import the repo. In **Settings → General → Root Directory**, set exactly (no spaces, correct casing):
+   **`Cursor-Onboarding/cursor-onboarding-kit`**
+4. Set **Framework Preset** to **Other** (no build). Deploy.
+5. Your setup chat will be at **`https://your-project.vercel.app/docs/setup-chat.html`** or **`/setup-chat`**.
 
 The repo includes a `vercel.json` that serves the site as static files and adds the short `/setup-chat` route.
 
