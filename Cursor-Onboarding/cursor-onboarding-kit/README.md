@@ -127,6 +127,8 @@ To get a shareable URL for the step-by-step setup (e.g. for teammates who havenâ
 
 The repo includes a `vercel.json` that serves the site as static files and adds the short `/setup-chat` route.
 
+**After editing the setup chat or other deployed files:** commit and push so Vercel redeploys and you can see changes in real time. (Unpushed changes wonâ€™t appear on the live site.)
+
 ## Contributing
 
 This project follows an iterative development process:
