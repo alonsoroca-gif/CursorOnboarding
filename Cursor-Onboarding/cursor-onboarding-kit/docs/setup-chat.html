@@ -74,6 +74,21 @@
       width: 100%; max-width: 100%; height: auto; display: block;
     }
     .install-video { width: 100%; max-width: 560px; border-radius: 10px; margin-top: 16px; display: block; }
+    .smoke-test-download { margin-top: 12px; }
+    .progress-bar-wrap { width: 100%; height: 6px; background: #e5e5e5; border-radius: 3px; overflow: hidden; margin-top: 16px; }
+    .progress-bar-fill { height: 100%; background: #1a1a1a; border-radius: 3px; width: 0%; transition: width 0.3s ease; }
+    .mental-model-doc {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, "Cascadia Code", monospace;
+      font-size: 0.8rem; line-height: 1.55; color: #1a1a1a; margin-top: 12px;
+      padding: 16px; background: #f7f7f8; border: 1px solid #e5e5e5; border-radius: 10px;
+      max-height: 420px; overflow-y: auto;
+    }
+    .mental-model-doc h3 { font-size: 0.95rem; margin: 0 0 10px; font-weight: 600; }
+    .mental-model-doc h4 { font-size: 0.85rem; margin: 14px 0 6px; font-weight: 600; }
+    .mental-model-doc ul, .mental-model-doc ol { margin: 6px 0; padding-left: 1.25rem; }
+    .mental-model-doc li { margin-bottom: 4px; }
+    .mental-model-doc p { margin: 0 0 8px; }
+    .mental-model-doc strong { font-weight: 600; }
   </style>
 </head>
 <body>
@@ -82,6 +97,7 @@
       <img src="screenshots/.localized/APP_ICON_2D.png" alt="" class="header-icon">
       <h1>Cursor setup</h1>
       <p>Step by step, learn and apply as you go</p>
+      <div class="progress-bar-wrap" id="progress-bar-wrap"><div class="progress-bar-fill" id="progress-bar-fill"></div></div>
     </header>
     <div class="thread" id="thread"></div>
   </div>
@@ -98,8 +114,8 @@
       { title: "Download Cursor", body: "Choose your OS below to open the download page. Pick the right build (e.g. Mac ARM64 for Apple Silicon, Windows User if you don't have admin).", downloadButtons: true },
       { title: "Install Cursor", body: "Follow the steps for your OS below. Click your OS to open the install page if you haven't downloaded yet. Watch the short install walkthrough below.", osBlocks: true, installVideo: true, downloadButtons: true },
       { title: "Sign in", body: "In Cursor: sign in with your work email or SSO (per company policy).\n\nIf sign-in fails or loops, try **Sign out** then sign in again, or reach **#ask-it**." },
-      { title: "Verify AI works", body: "Quick smoke test:\n\n1. Open any file in Cursor (e.g. a .md).\n2. Open **Chat** (sidebar or Cmd/Ctrl+Shift+L).\n3. Ask: _Summarize the first paragraph._\n\nYou should get a short reply. If not, see troubleshooting → AI features or **#ask-it**." },
-      { title: "Read the mental model", body: "One last step: read **Mental model: how to think with Cursor** (verify, validate, guardrails).\n\nIt's in your repo at docs/mental-model.md. It explains when to trust Cursor and when to double-check." },
+      { title: "Verify AI works", body: "Quick smoke test:\n\n1. Download the example file below and open it in Cursor.\n2. Open **Chat** (sidebar or Cmd/Ctrl+Shift+L).\n3. Ask: _Summarize the first paragraph._\n\nYou should get a short reply. If not, see troubleshooting → AI features or **#ask-it**.", smokeTestFile: true },
+      { title: "Read the mental model", body: "Read the mental model below — it’s how we expect you to think when using Cursor (verify, validate, guardrails).", mentalModel: true },
       { title: "You're set", body: "Setup is complete. Next:\n\n• **Troubleshooting** — docs/troubleshooting.md\n• **Mental model** — when to trust / double-check\n• **Example workflows** — examples/\n• **Prompts** — docs/prompts.md\n\nNeed help? **#ask-it** on Slack.", last: true }
     ];
 
@@ -133,6 +149,62 @@
       }
     };
 
+    const MENTAL_MODEL_HTML = `
+<h3>Mental Model: How to Think with Cursor</h3>
+<p>This doc is the single source of truth for how we expect you to use Cursor. It applies to setup, examples, the workshop, and day-to-day use.</p>
+
+<h4>What Cursor Is</h4>
+<ul><li><strong>A powerful AI-enabled coding environment.</strong> Cursor helps you write, summarize, debug, and understand code faster by combining your editor with AI assistance.</li></ul>
+
+<h4>What Cursor Is Not</h4>
+<ul><li><strong>Autopilot.</strong> Cursor does not replace your judgment. It suggests and generates; you decide what to accept, change, or reject. You are responsible for the code that ships.</li></ul>
+
+<h4>Your Responsibilities</h4>
+<p>When using Cursor, you are responsible for:</p>
+<ol>
+<li><strong>Verifying logic</strong> — Does the generated code do what you intend? Does the reasoning hold up?</li>
+<li><strong>Validating outputs</strong> — Run tests, spot-check results, review diffs before committing.</li>
+<li><strong>Applying appropriate guardrails</strong> — Know what not to send to Cursor (sensitive information, e.g. credentials or PII); understand your company's policy on AI tools and permissions.</li>
+</ol>
+
+<h4>When to Trust Cursor</h4>
+<ul>
+<li>Boilerplate, scaffolding, and obvious refactors when the change is small and easy to verify.</li>
+<li>Summarization and explanation of code you can then verify by reading.</li>
+<li>Repetitive edits that follow a clear pattern you can review.</li>
+</ul>
+
+<h4>When to Double-Check</h4>
+<ul>
+<li>Security-sensitive code (auth, permissions, sensitive information).</li>
+<li>Logic that affects money, compliance, or safety.</li>
+<li>Complex or subtle behavior where bugs are hard to spot.</li>
+<li>Anything you would normally have a second pair of eyes on.</li>
+</ul>
+
+<h4>How to Validate Generated Code</h4>
+<ul>
+<li><strong>Run tests</strong> — If the project has tests, run them after applying Cursor's changes.</li>
+<li><strong>Review the diff</strong> — Don't accept large changes without reading what changed.</li>
+<li><strong>Spot-check behavior</strong> — Run the app or script with a few inputs; confirm edge cases if it matters.</li>
+<li><strong>Check permissions and context</strong> — Ensure Cursor didn't suggest sending or logging data you don't want to expose.</li>
+</ul>
+
+<h4>Safe vs Unsafe Usage</h4>
+<ul>
+<li><strong>Safe:</strong> Using Cursor for summarization, debugging, and understanding code in a sandbox or non-sensitive repo; validating all output before commit; following company policy on what can be sent to AI.</li>
+<li><strong>Unsafe:</strong> Pasting sensitive information (e.g. credentials, PII) into Cursor; accepting generated code without review in critical paths; assuming Cursor's output is correct without verification.</li>
+</ul>
+
+<h4>Where This Applies</h4>
+<ul>
+<li><strong>First run:</strong> Read this doc as part of setup.</li>
+<li><strong>Examples:</strong> Each workflow in examples/ includes a "when to double-check" or validation step.</li>
+<li><strong>Troubleshooting:</strong> When something goes wrong, see troubleshooting (user error vs context vs Cursor limitations).</li>
+<li><strong>Workshop:</strong> The live session reinforces this mental model and links back here.</li>
+</ul>
+`;
+
     function render(text) {
       if (!text) return "";
       return text
@@ -149,6 +221,8 @@
       const el = thread.querySelector(`[data-step="${index}"]`);
       if (el) el.classList.add("visible");
       current = index;
+      const fill = document.getElementById("progress-bar-fill");
+      if (fill) fill.style.width = ((index + 1) / steps.length * 100) + "%";
     }
 
     function buildStep(step, index) {
@@ -158,6 +232,12 @@
       let content = "";
       if (step.welcomeImage) { content += ""; }
       content += render(step.body);
+      if (step.mentalModel) {
+        content += '<div class="mental-model-doc">' + MENTAL_MODEL_HTML + '</div>';
+      }
+      if (step.smokeTestFile) {
+        content += `<div class="smoke-test-download"><a href="smoke-test-example.md" download class="btn btn-download">Download smoke-test-example.md</a></div>`;
+      }
       if (step.downloadButtons) {
         content += `<div class="download-buttons">
           <a href="${CURSOR_DOWNLOAD_URLS.macos}" target="_blank" rel="noopener" class="btn btn-download">Download for macOS</a>
@@ -207,6 +287,8 @@
       const el = document.getElementById("congrats-page");
       if (el) el.classList.add("visible");
       current = "congrats";
+      const fill = document.getElementById("progress-bar-fill");
+      if (fill) fill.style.width = "100%";
     }
 
     function buildCongrats() {
