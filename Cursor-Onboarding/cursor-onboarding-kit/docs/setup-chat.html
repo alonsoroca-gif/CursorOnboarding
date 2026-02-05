@@ -64,6 +64,8 @@
     .congrats .congrats-icon { font-size: 3rem; margin-bottom: 16px; }
     .congrats h2 { font-size: 1.5rem; margin: 0 0 12px; color: #1a1a1a; }
     .congrats p { font-size: 1rem; line-height: 1.6; color: #3a3a3a; margin: 0 0 24px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .welcome-logo { max-width: 200px; height: auto; display: block; margin: 0 auto 16px; }
+    .install-video { width: 100%; max-width: 560px; border-radius: 10px; margin-top: 16px; display: block; }
   </style>
 </head>
 <body>
@@ -82,10 +84,10 @@
       linux: "https://api2.cursor.sh/updates/download/golden/linux-x64-deb/cursor/2.4"
     };
     const steps = [
-      { title: "Welcome", body: "Let's get Cursor on your machine and verify it works. We'll do this step by step — you do each part, then tap **Next** when you're ready.\n\nIf your company blocks installs or SSO, reach **#ask-it** on Slack first." },
+      { title: "Welcome", body: "Let's get Cursor on your machine and verify it works. We'll do this step by step — you do each part, then tap **Next** when you're ready.\n\nIf your company blocks installs or SSO, reach **#ask-it** on Slack first.", welcomeImage: true },
       { title: "Check prerequisites", body: "Before downloading, confirm:\n\n• **OS:** macOS, Windows, or Linux\n• **Access:** Admin/sudo (or Windows User install)\n• **Internet:** Required (Cursor uses cloud AI)\n• **RAM:** 8 GB min, 16 GB recommended for large codebases\n• **Account:** GitHub or work account for sign-in" },
       { title: "Download Cursor", body: "Choose your OS below to open the download page. Pick the right build (e.g. Mac ARM64 for Apple Silicon, Windows User if you don't have admin).", downloadButtons: true },
-      { title: "Install Cursor", body: "Follow the steps for your OS below. Click your OS to open the install page if you haven't downloaded yet.", osBlocks: true, installScreenshots: true, downloadButtons: true },
+      { title: "Install Cursor", body: "Follow the steps for your OS below. Click your OS to open the install page if you haven't downloaded yet. Watch the short install walkthrough below.", osBlocks: true, installVideo: true, downloadButtons: true },
       { title: "Sign in", body: "In Cursor: sign in with your work email or SSO (per company policy).\n\nIf sign-in fails or loops, try **Sign out** then sign in again, or reach **#ask-it**." },
       { title: "Verify AI works", body: "Quick smoke test:\n\n1. Open any file in Cursor (e.g. a .md).\n2. Open **Chat** (sidebar or Cmd/Ctrl+Shift+L).\n3. Ask: _Summarize the first paragraph._\n\nYou should get a short reply. If not, see troubleshooting → AI features or **#ask-it**." },
       { title: "Read the mental model", body: "One last step: read **Mental model: how to think with Cursor** (verify, validate, guardrails).\n\nIt's in your repo at docs/mental-model.md. It explains when to trust Cursor and when to double-check." },
@@ -120,7 +122,11 @@
       const div = document.createElement("div");
       div.className = "message";
       div.dataset.step = String(index);
-      let content = render(step.body);
+      let content = "";
+      if (step.welcomeImage) {
+        content += `<img src="screenshots/cursor-logo.png" alt="Cursor" class="welcome-logo">`;
+      }
+      content += render(step.body);
       if (step.downloadButtons) {
         content += `<div class="download-buttons">
           <a href="${CURSOR_DOWNLOAD_URLS.macos}" target="_blank" rel="noopener" class="btn btn-download">Download for macOS</a>
@@ -129,12 +135,13 @@
         </div>`;
       }
       if (step.osBlocks) {
-        content += `<div class="os-block">${render(osBlocks.macos)}</div><div class="os-block">${render(osBlocks.windows)}</div><div class="os-block">${render(osBlocks.linux)}</div>`;
-      }
-      if (step.installScreenshots) {
-        content += `<div class="screenshot-placeholder" id="install-screenshot-placeholder">
-          <p><strong>Screenshot</strong> — Add install screenshots here to guide your team (e.g. <code>docs/screenshots/install-mac.png</code>). Replace this placeholder with an <code>&lt;img&gt;</code> when ready.</p>
-        </div>`;
+        content += `<div class="os-block">${render(osBlocks.macos)}</div>`;
+        if (step.installVideo) {
+          content += `<div class="install-video-wrap"><video class="install-video" controls preload="metadata" poster="">
+            <source src="screenshots/install-demo.mp4" type="video/mp4">
+            Your browser does not support the video tag. Add <code>docs/screenshots/install-demo.mp4</code> or use a YouTube/Vimeo embed URL.</video></div>`;
+        }
+        content += `<div class="os-block">${render(osBlocks.windows)}</div><div class="os-block">${render(osBlocks.linux)}</div>`;
       }
       const total = steps.length;
       const isLast = step.last || index === total - 1;

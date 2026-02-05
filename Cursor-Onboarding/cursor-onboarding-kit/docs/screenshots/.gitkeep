@@ -1,2 +1,2 @@
-# Add install screenshots here (e.g. install-mac.png, install-windows.png, install-linux.png)
-# Then reference them in docs/setup-chat.html in the Step 4 screenshot placeholder.
+# cursor-logo.png — used on Step 1 (Welcome) in setup-chat.html
+# install-demo.mp4 — add your install walkthrough video; used on Step 4 (Install) below the macOS block
