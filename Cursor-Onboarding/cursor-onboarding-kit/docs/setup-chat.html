@@ -48,8 +48,12 @@
     .btn:disabled { opacity: 0.6; cursor: default; }
     .btn-back { background: #fff; color: #1a1a1a; border: 1px solid #e5e5e5; }
     .btn-back:hover { background: #f0f0f0; }
-    .btn-download { background: #0066cc; margin-right: 8px; margin-bottom: 8px; }
-    .btn-download:hover { background: #0052a3; }
+    .btn-download {
+      background: #0066cc; margin-right: 8px; margin-bottom: 8px;
+      color: #fff !important; text-decoration: none; font-weight: 500; font-size: 0.9rem;
+    }
+    .btn-download:hover { background: #0052a3; color: #fff; }
+    .bubble .content .btn-download { color: #fff; }
     .screenshot-placeholder {
       margin-top: 12px; padding: 24px; background: #e8e8ed; border-radius: 10px;
       font-size: 0.85rem; color: #6b6b6b; text-align: center;
@@ -72,6 +76,11 @@
   </div>
   <script>
     const CURSOR_DOWNLOADS = "https://cursor.com/downloads";
+    const CURSOR_DOWNLOAD_URLS = {
+      macos: "https://api2.cursor.sh/updates/download/golden/darwin-arm64/cursor/2.4",
+      windows: "https://api2.cursor.sh/updates/download/golden/win32-x64-user/cursor/2.4",
+      linux: "https://api2.cursor.sh/updates/download/golden/linux-x64-deb/cursor/2.4"
+    };
     const steps = [
       { title: "Welcome", body: "Let's get Cursor on your machine and verify it works. We'll do this step by step — you do each part, then tap **Next** when you're ready.\n\nIf your company blocks installs or SSO, reach **#ask-it** on Slack first." },
       { title: "Check prerequisites", body: "Before downloading, confirm:\n\n• **OS:** macOS, Windows, or Linux\n• **Access:** Admin/sudo (or Windows User install)\n• **Internet:** Required (Cursor uses cloud AI)\n• **RAM:** 8 GB min, 16 GB recommended for large codebases\n• **Account:** GitHub or work account for sign-in" },
@@ -114,9 +123,9 @@
       let content = render(step.body);
       if (step.downloadButtons) {
         content += `<div class="download-buttons">
-          <a href="${CURSOR_DOWNLOADS}" target="_blank" rel="noopener" class="btn btn-download">Download for macOS</a>
-          <a href="${CURSOR_DOWNLOADS}" target="_blank" rel="noopener" class="btn btn-download">Download for Windows</a>
-          <a href="${CURSOR_DOWNLOADS}" target="_blank" rel="noopener" class="btn btn-download">Download for Linux</a>
+          <a href="${CURSOR_DOWNLOAD_URLS.macos}" target="_blank" rel="noopener" class="btn btn-download">Download for macOS</a>
+          <a href="${CURSOR_DOWNLOAD_URLS.windows}" target="_blank" rel="noopener" class="btn btn-download">Download for Windows</a>
+          <a href="${CURSOR_DOWNLOAD_URLS.linux}" target="_blank" rel="noopener" class="btn btn-download">Download for Linux</a>
         </div>`;
       }
       if (step.osBlocks) {
