@@ -37,7 +37,11 @@
     .bubble .content a:hover { text-decoration: underline; }
     .bubble .content br { display: block; content: ""; margin-top: 0.35em; }
     .os-block { margin-top: 12px; padding: 12px; background: #f7f7f8; border-radius: 10px; font-size: 0.9rem; }
-    .os-block strong { display: block; margin-bottom: 6px; color: #1a1a1a; }
+    .os-block strong { display: block; margin-bottom: 8px; color: #1a1a1a; }
+    .os-steps { margin: 0; padding-left: 1.35rem; }
+    .os-steps li { margin-bottom: 6px; line-height: 1.5; }
+    .os-steps li:last-child { margin-bottom: 0; }
+    .bubble .content code { font-size: 0.85em; background: #e8e8e8; padding: 2px 6px; border-radius: 4px; }
     .actions { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
@@ -100,9 +104,33 @@
     ];
 
     const osBlocks = {
-      macos: "**macOS:** Open the .dmg and drag Cursor to Applications. Open from Applications or Spotlight. If macOS says \"unidentified developer\", go to System Settings → Privacy & Security and allow Cursor. On first launch, grant any requested permissions (e.g. Accessibility).",
-      windows: "**Windows:** Run the installer (User = no admin, System = admin). Complete the steps. Launch Cursor from the Start menu or desktop shortcut. If policy blocks install, reach **#ask-it** on Slack.",
-      linux: "**Linux:** .deb: sudo dpkg -i cursor*.deb (then sudo apt --fix-broken install if needed). .rpm: sudo rpm -i cursor*.rpm. .AppImage: chmod +x Cursor*.AppImage then run it (FUSE may be required). Launch from app menu or shell (cursor if in PATH)."
+      macos: {
+        label: "macOS",
+        steps: [
+          "Open the .dmg and drag Cursor to Applications.",
+          "Open from Applications or Spotlight.",
+          "If macOS says \"unidentified developer\", go to System Settings → Privacy & Security and allow Cursor.",
+          "On first launch, grant any requested permissions (e.g. Accessibility)."
+        ]
+      },
+      windows: {
+        label: "Windows",
+        steps: [
+          "Run the installer (User = no admin, System = admin).",
+          "Complete the steps in the wizard.",
+          "Launch Cursor from the Start menu or desktop shortcut.",
+          "If policy blocks install, reach **#ask-it** on Slack."
+        ]
+      },
+      linux: {
+        label: "Linux",
+        steps: [
+          ".deb: run <code>sudo dpkg -i cursor*.deb</code> (then <code>sudo apt --fix-broken install</code> if needed).",
+          ".rpm: run <code>sudo rpm -i cursor*.rpm</code>.",
+          ".AppImage: <code>chmod +x Cursor*.AppImage</code> then run it (FUSE may be required).",
+          "Launch from app menu or shell (<code>cursor</code> if in PATH)."
+        ]
+      }
     };
 
     function render(text) {
@@ -138,13 +166,16 @@
         </div>`;
       }
       if (step.osBlocks) {
-        content += `<div class="os-block">${render(osBlocks.macos)}</div>`;
+        ["macos", "windows", "linux"].forEach(key => {
+          const block = osBlocks[key];
+          const listItems = block.steps.map(s => `<li>${render(s)}</li>`).join("");
+          content += `<div class="os-block"><strong>${block.label}</strong><ol class="os-steps">${listItems}</ol></div>`;
+        });
         if (step.installVideo) {
           content += `<div class="install-video-wrap"><video class="install-video" controls preload="auto" autoplay muted playsinline loop>
             <source src="screenshots/install-demo.mp4" type="video/mp4">
             Your browser does not support the video tag.</video></div>`;
         }
-        content += `<div class="os-block">${render(osBlocks.windows)}</div><div class="os-block">${render(osBlocks.linux)}</div>`;
       }
       const total = steps.length;
       const isLast = step.last || index === total - 1;
