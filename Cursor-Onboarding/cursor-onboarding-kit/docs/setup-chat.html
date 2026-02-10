@@ -109,17 +109,23 @@
       linux: "https://api2.cursor.sh/updates/download/golden/linux-x64-deb/cursor/2.4"
     };
     const steps = [
-      { title: "Welcome", body: "Let's get Cursor on your machine and verify it works. We'll do this step by step — you do each part, then tap **Next** when you're ready.\n\nIf your company blocks installs or SSO, reach **#ask-it** on Slack first.", welcomeImage: true },
+      { title: "Welcome", body: "Let's get Cursor on your machine. This is **Part 1** — we'll take you through download and install. You do each part, then tap **Next** when you're ready.\n\nIf your company blocks installs or SSO, reach **#ask-it** on Slack first.", welcomeImage: true },
       { title: "Check prerequisites", body: "Before downloading, confirm:\n\n• **OS:** macOS, Windows, or Linux\n• **Access:** Admin/sudo (or Windows User install)\n• **Internet:** Required (Cursor uses cloud AI)\n• **RAM:** 8 GB min, 16 GB recommended for large codebases\n• **Account:** GitHub or work account for sign-in" },
       { title: "Download Cursor", body: "Choose your OS below to open the download page. Pick the right build (e.g. Mac ARM64 for Apple Silicon, Windows User if you don't have admin).", downloadButtons: true },
       { title: "Install Cursor", body: "Follow the steps for your OS below. Click your OS to open the install page if you haven't downloaded yet. Watch the short install walkthrough below.", osBlocks: true, installVideo: true, downloadButtons: true },
-      { title: "Sign in", body: "In Cursor: sign in with your work email or SSO (per company policy).\n\nIf sign-in fails or loops, try **Sign out** then sign in again, or reach **#ask-it**." },
-      { title: "Verify AI works", body: "Quick smoke test:\n\n1. Download the example file below, then open it in Cursor (File → Open, or drag the file into Cursor).\n2. Open **Chat** (sidebar or Cmd/Ctrl+Shift+L).\n3. Ask: _Summarize the first paragraph._\n\nYou should get a short reply. If not, see troubleshooting → AI features or **#ask-it**.", smokeTestFile: true },
-      { title: "Read the mental model", body: "Read the mental model below — it’s how we expect you to think when using Cursor (verify, validate, guardrails).", mentalModel: true },
-      { title: "You're set", body: "Setup is complete. Next:\n\n• **Troubleshooting** — docs/troubleshooting.md\n• **Mental model** — when to trust / double-check\n• **Example workflows** — examples/\n• **Prompts** — docs/prompts.md\n\nNeed help? **#ask-it** on Slack.", last: true }
-    ];
+      { title: "Continue in Cursor", body: "**Part 1 done.** Cursor is (or will be) on your machine.
 
-    const osBlocks = {
+**Next:** Open Cursor. Then, inside Cursor, run the **onboarding chat** to continue with sign-in, smoke test, mental model, and \"you're set.\"
+
+**How to run the onboarding chat:**
+1. Open Cursor.
+2. Open the Command Palette: **Cmd+Shift+P** (Mac) or **Ctrl+Shift+P** (Windows/Linux).
+3. Run: **Cursor Setup: Start onboarding chat**.
+
+If you don't see that command yet, install the **Cursor Setup** extension from this repo (see README in the extension folder), then run the command again.
+
+You'll complete Part 2 (sign-in, verify AI, mental model) in Cursor's Chat — the same place you'll use every day.", handoff: true, last: true }
+    ];const osBlocks = {
       macos: {
         label: "macOS",
         steps: [
@@ -298,10 +304,10 @@
       div.dataset.step = "congrats";
       div.innerHTML = `
         <div class="bubble congrats">
-          <div class="congrats-icon">🎉</div>
-          <h2>Congratulations!</h2>
-          <p>You're all set with Cursor. You're going to save time on debugging, understand code faster, and ship with more confidence. The more you use it, the more it becomes second nature — so try it on your next task and see how it feels.</p>
-          <p><strong>Your team is rooting for you.</strong> If you hit a snag, #ask-it is there. Now go build something.</p>
+          <div class="congrats-icon">✓</div>
+          <h2>Part 1 complete</h2>
+          <p>You've finished the download and install steps. <strong>Open Cursor</strong>, then run <strong>Cursor Setup: Start onboarding chat</strong> (Command Palette) to continue with sign-in, smoke test, mental model, and "you're set."</p>
+          <p>If you need the extension, see the <strong>cursor-setup-extension</strong> folder in this repo.</p>
           <div class="actions" style="justify-content: center; margin-top: 24px;">
             <button class="btn btn-back" data-back-congrats>Back to guide</button>
           </div>

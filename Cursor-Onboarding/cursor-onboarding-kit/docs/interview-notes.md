@@ -1,7 +1,8 @@
 # Interview Notes - Cursor Onboarding Discovery
 
 **Date Range**: _______________
-**Interviews Completed**: 1 / 3
+**Interviews Completed**: 1 / 3  
+**Google Forms (team):** 5 responses recorded → see [top-10-features.md](top-10-features.md) for KPIs, top 10 list, and implications for setup/examples/workshop.
 
 ---
 
@@ -157,18 +158,18 @@ Based on needs:
 
 ## Top 10 Features to Focus On
 
-Based on interviews and team needs:
+**Canonical list:** [top-10-features.md](top-10-features.md) (updated from Interview #1 + Google Forms, 5 responses).
 
 1. Code summarization (SQL, Node.js)
 2. Debugging and logic analysis
 3. Understanding complex or unfamiliar codebases
 4. Identifying potential bugs and edge cases
-5. _______________ (to be filled from Cursor docs + Interview #2–3)
-6. _______________
-7. _______________
-8. _______________
-9. _______________
-10. _______________
+5. Multi-file code suggestions and edits
+6. Deep repo / codebase search
+7. Documentation as source of truth
+8. AI agents / agentic workflows
+9. Implementing from specs quickly
+10. Quick iteration with Chat + prompts
 
 ---
 

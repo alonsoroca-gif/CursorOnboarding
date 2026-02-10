@@ -69,6 +69,14 @@ For our expectations, see [mental-model.md](mental-model.md#your-responsibilitie
 - **“Rate limit” or similar:** You may have hit usage limits. Wait a few minutes or check your plan. If it persists, reach **#ask-it**.
 - **Reply is irrelevant or wrong:** That’s often context or prompt; see [Understanding what went wrong](#understanding-what-went-wrong). Validate all output (see [mental-model.md](mental-model.md)).
 
+### Coding standards and output that doesn’t match company style
+
+If Cursor’s output doesn’t match your team’s or company’s coding standards (e.g. Entrata or internal conventions) and you’re doing a lot of manual correction, add a **`.cursorrules`** file in your repository root. In it, define the rules you want the AI to follow: naming, formatting, patterns, or links to your standards doc. Cursor uses this file to steer generated code toward your conventions and can reduce the “engineering gap” between its output and what you need. See [Cursor docs on .cursorrules](https://docs.cursor.com/context/rules-for-ai) for syntax. If you don’t have one yet, start with 3–5 concrete rules (e.g. “Use our ESLint config,” “Follow Entrata API naming”) and expand from there.
+
+### Preserving existing logic when prompting
+
+If you’re worried about Cursor (or other tools) overwriting designs or logic you’ve already finalized, make it explicit in your prompt: e.g. **“Preserve existing logic/design unless I ask to change it.”** That helps avoid unintended changes when you’re only asking for a small edit or addition. See [prompts.md](prompts.md) for more prompt principles.
+
 ## Platform-Specific Issues
 
 ### macOS

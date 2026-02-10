@@ -6,7 +6,8 @@ This guide provides recommended prompt templates and best practices for using Cu
 
 ## Prompt Principles
 
-[To be documented in Week 4]
+- **Prompt persistence / preserve existing logic:** When you only want a small change (e.g. fix a bug, add a field), say so explicitly so Cursor doesn’t rewrite more than you intend. Example: *“Preserve existing logic/design unless I ask to change it.”* or *“Only change the function body; keep the rest of the file as-is.”* This is especially important when your “source of truth” lives in other tools (e.g. specs or designs) that shouldn’t be overwritten by AI output.
+- *(More principles to be added in Week 4.)*
 
 ## When to Trust vs Double-Check vs Validate
 

@@ -8,6 +8,8 @@ Get Cursor installed and running on your machine. This guide covers macOS, Windo
 - **Local:** Open `docs/setup-chat.html` (double-click or drag into the browser).
 - **If deployed (e.g. Vercel):** Use your project URL + `/docs/setup-chat.html` or `/setup-chat`.
 
+*We’re also exploring a **didactic setup chat inside Cursor** (same dashboard, Notion-style). See [setup-chat-in-cursor-brainstorm.md](setup-chat-in-cursor-brainstorm.md) for the idea and execution options.*
+
 ---
 
 ## Before You Start
@@ -78,6 +80,8 @@ If Chat never replies or shows an error, see [troubleshooting → AI features](t
 **Do not** paste passwords, API keys, or other sensitive information into Chat or prompts. See [mental-model → Your responsibilities](mental-model.md#your-responsibilities).
 
 **Extensions:** Cursor works without extra extensions. Add language or linter extensions from the Extensions panel if you need them; see [Cursor docs](https://docs.cursor.com) for recommendations.
+
+**Optional — company coding standards:** If your team has internal standards (e.g. Entrata or style guides) and you want Cursor’s output to align with them, add a [`.cursorrules`](https://docs.cursor.com/context/rules-for-ai) file in your repo root with your conventions. See [troubleshooting → Coding standards](troubleshooting.md#coding-standards-and-output-that-doesnt-match-company-style).
 
 ---
 

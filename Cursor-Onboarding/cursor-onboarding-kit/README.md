@@ -20,7 +20,7 @@ Build a comprehensive Cursor Onboarding Kit (repository + guided workspace + wor
 ### Week 1 — Kickoff + Discovery
 - [x] Create project plan in README.md
 - [ ] Interview 2-3 teammates about Cursor needs
-- [ ] Explore Cursor docs and identify top 10 features (→ [docs/top-10-features.md](docs/top-10-features.md))
+- [x] Explore Cursor docs and identify top 10 features (→ [docs/top-10-features.md](docs/top-10-features.md)) — updated from Interview #1 + Google Forms (5 responses)
 - [x] Create repository skeleton
 
 ### Week 2 — Environment & Baseline Docs
@@ -75,6 +75,7 @@ cursor-onboarding-kit/
 │  └─ 04-debugging/            # Debugging and code exploration
 ├─ templates/
 │  └─ cursor-workspace-template/ # Reusable workspace template
+├─ cursor-setup-extension/     # Part 2: in-Cursor onboarding (run "Cursor Setup: Start onboarding chat")
 ├─ workshop/
 │  ├─ slides.pdf               # Workshop presentation
 │  ├─ demo-recording.mp4       # Demo screencast
@@ -86,10 +87,11 @@ cursor-onboarding-kit/
 ## Quick Start
 
 ### For New Users
-1. Follow the setup guide in [docs/setup.md](docs/setup.md), or open **[docs/setup-chat.html](docs/setup-chat.html)** in your browser for a step-by-step learn/apply flow (local: double-click the file; deployed: use your site URL + `/docs/setup-chat.html`).
-2. Read [how to think with Cursor](docs/mental-model.md) (when to trust, verify, guardrails)
-3. Try one of the example workflows in [examples/](examples/)
-4. Reference the [quick-reference.pdf](quick-reference.pdf) for common commands
+1. **Part 1 (webpage):** Open **[docs/setup-chat.html](docs/setup-chat.html)** in your browser — steps 1–4 (download & install Cursor). At the end you’ll see “Continue in Cursor.”
+2. **Part 2 (in Cursor):** Open Cursor, then run **Cursor Setup: Start onboarding chat** from the Command Palette (install the [cursor-setup-extension](cursor-setup-extension/) first if needed). Part 2 covers sign-in, smoke test, mental model, and “you’re set.”
+3. Read [how to think with Cursor](docs/mental-model.md) (when to trust, verify, guardrails)
+4. Try one of the example workflows in [examples/](examples/)
+5. Reference the [quick-reference.pdf](quick-reference.pdf) for common commands
 
 > **Note:** `quick-reference.pdf` and other workshop assets (slides, demo recording) are created in Week 5. Until then, use [docs/setup.md](docs/setup.md) and [examples/](examples/) to get started.
 
