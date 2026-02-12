@@ -11,7 +11,8 @@
     {
       title: "Welcome",
       body: "Let's get Cursor on your machine. This is **Part 1** — we'll take you through download and install. You do each part, then tap **Next** when you're ready.\n\nIf your company blocks installs or SSO, reach **#ask-it** on Slack first.",
-      welcomeImage: true
+      welcomeImage: true,
+      cursorIsIsNot: true
     },
     {
       title: "Check prerequisites",
@@ -41,9 +42,9 @@
       last: false
     },
     {
-      title: "Read how to use Cursor safely",
-      body: "This is the baseline for how we expect you to work with Cursor: verify, validate, guardrails, and when to double-check. Scroll through the mental model below.",
-      mentalModel: true,
+      title: "Your responsibilities with Cursor",
+      body: "When you use Cursor, you own the outcome. Below are your responsibilities: verify, validate, guardrails, and when to double-check.",
+      mentalModelResponsibilities: true,
       last: false
     },
     {
@@ -85,16 +86,15 @@
     }
   };
 
-  const MENTAL_MODEL_HTML = `
-<h3>Mental Model: How to Think with Cursor</h3>
-<p>This doc is the single source of truth for how we expect you to use Cursor. It applies to setup, examples, the workshop, and day-to-day use.</p>
-
+  const CURSOR_IS_ISNOT_HTML = `
 <h4>What Cursor Is</h4>
 <ul><li><strong>A powerful AI-enabled coding environment.</strong> Cursor helps you write, summarize, debug, and understand code faster by combining your editor with AI assistance.</li></ul>
 
 <h4>What Cursor Is Not</h4>
 <ul><li><strong>Autopilot.</strong> Cursor does not replace your judgment. It suggests and generates; you decide what to accept, change, or reject. You are responsible for the code that ships.</li></ul>
+`;
 
+  const MENTAL_MODEL_RESPONSIBILITIES_HTML = `
 <h4>Your Responsibilities</h4>
 <p>When using Cursor, you are responsible for:</p>
 <ol>
@@ -170,8 +170,14 @@
     var content = "";
     if (step.welcomeImage) { content += ""; }
     content += render(step.body);
+    if (step.cursorIsIsNot) {
+      content += '<div class="mental-model-doc">' + CURSOR_IS_ISNOT_HTML + '</div>';
+    }
     if (step.mentalModel) {
-      content += '<div class="mental-model-doc">' + MENTAL_MODEL_HTML + '</div>';
+      content += '<div class="mental-model-doc">' + CURSOR_IS_ISNOT_HTML + MENTAL_MODEL_RESPONSIBILITIES_HTML + '</div>';
+    }
+    if (step.mentalModelResponsibilities) {
+      content += '<div class="mental-model-doc">' + MENTAL_MODEL_RESPONSIBILITIES_HTML + '</div>';
     }
     if (step.survey) {
       content +=
