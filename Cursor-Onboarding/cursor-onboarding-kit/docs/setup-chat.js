@@ -18,10 +18,9 @@
       body: "Before downloading, confirm:\n\n• **OS:** macOS, Windows, or Linux\n• **Access:** Admin/sudo (or Windows User install)\n• **Internet:** Required (Cursor uses cloud AI)\n• **RAM:** 8 GB min, 16 GB recommended for large codebases\n• **Account:** GitHub or work account for sign-in"
     },
     {
-      title: "Download Cursor & smoke test file",
-      body: "First, choose your OS below to open the Cursor download page. Pick the right build (e.g. Mac ARM64 for Apple Silicon, Windows User if you don't have admin).\n\nThen download the **smoke test file** you'll use in Part 2 inside Cursor. Save it somewhere easy to find (Desktop or your dev folder).",
-      downloadButtons: true,
-      smokeTestFile: true
+      title: "Download Cursor",
+      body: "Choose your OS below to open the Cursor download page. Pick the right build (e.g. Mac ARM64 for Apple Silicon, Windows User if you don't have admin).",
+      downloadButtons: true
     },
     {
       title: "Install Cursor",
@@ -29,6 +28,11 @@
       osBlocks: true,
       installVideo: true,
       downloadButtons: true
+    },
+    {
+      title: "Download the smoke test file",
+      body: "Download the **smoke test file** you'll use in Part 2 inside Cursor. Save it somewhere easy to find (Desktop or your dev folder). When you're in Cursor later, you'll open this file to verify the AI is working.",
+      smokeTestFile: true
     },
     {
       title: "Continue in Cursor",

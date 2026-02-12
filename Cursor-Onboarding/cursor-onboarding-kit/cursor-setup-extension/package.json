@@ -4,6 +4,10 @@
   "description": "Start the Cursor onboarding chat (Part 2: sign-in, smoke test, mental model). Run after you've installed and opened Cursor.",
   "version": "0.1.0",
   "publisher": "cursor-onboarding-kit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alonsoroca-gif/CursorOnboarding"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
