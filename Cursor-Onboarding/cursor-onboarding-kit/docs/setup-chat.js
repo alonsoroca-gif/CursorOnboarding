@@ -35,9 +35,10 @@
       smokeTestFile: true
     },
     {
-      title: "Install Cursor Setup & continue in Cursor",
-      body: "**Part 1 done.** Cursor is (or will be) on your machine, and you have **smoke-test-example.md** saved in your **\"Practice with Cursor\"** folder.\n\nWhen you open Cursor and choose that folder, you should see it listed in the status bar (bottom-left). From that window:\n\n**Step 1 – Install the Cursor Setup extension (.vsix)**\n1. In the top menu, click **View → Extensions** to open the Extensions view.\n2. In the Extensions view, click the **…** menu and choose **Install from VSIX…**.\n3. Select the `cursor-setup-0.1.0.vsix` file your team provided.\n4. When prompted, reload Cursor. After reload, stay in the same window (with **\"Practice with Cursor\"** open).\n\n**Step 2 – Start the onboarding chat inside Cursor**\n1. Open the **Command Palette**:\n   - Mac: **Cmd+Shift+P**\n   - Windows / Linux: **Ctrl+Shift+P**\n2. Type **Cursor Setup** and select **\"Cursor Setup: Start onboarding chat\"** from the list.\n3. The chat will guide you through: sign-in, running the smoke test on **smoke-test-example.md**, the mental model, and what to do next.\n\n**If the command doesn't appear even after installing the VSIX:**\n- Open Chat directly (**Cmd+Shift+L / Ctrl+Shift+L**).\n- Paste the starter prompt from our internal onboarding doc and use **smoke-test-example.md** for the smoke test.\n\nYou'll complete Part 2 (sign-in, verify AI, mental model) in Cursor's Chat — the same place you'll use every day.",
-      handoff: true,
+      title: "Open Cursor, run the smoke test, and learn the mental model",
+      body: "**Part 2 now happens entirely inside Cursor.** You'll open your **\"Practice with Cursor\"** folder, run a quick smoke test on `smoke-test-example.md`, and then read how we expect you to use Cursor day to day.\n\n**1. Open the Practice with Cursor folder in Cursor**\n- Launch **Cursor**.\n- On the first screen, click **Open project**.\n- Choose the **\"Practice with Cursor\"** folder you created in the previous step.\n\n**2. Run the smoke test**\n- In the left sidebar, open `smoke-test-example.md`.\n- Open Chat:\n  - Mac: **Cmd+Shift+L**\n  - Windows / Linux: **Ctrl+Shift+L**\n- Paste this prompt into Chat and send it:\n\n`Summarize the \"Sample paragraph\" in this file in your own words, and tell me one way I might use Cursor on real code next.`\n\nIf the answer basically makes sense and matches the paragraph, your AI setup is working.\n\n**3. Read how to use Cursor safely**\nScroll through the mental model below (verify, validate, guardrails, when to double-check). This is the baseline for how we expect you to work with Cursor.",
+      mentalModel: true,
+      handoff: false,
       last: true
     }
   ];
@@ -220,9 +221,9 @@
     div.innerHTML =
       '<div class="bubble congrats">' +
         '<div class="congrats-icon">✓</div>' +
-        '<h2>Part 1 complete</h2>' +
-        '<p>You\'ve finished the download and install steps. <strong>Open Cursor</strong>, then run <strong>Cursor Setup: Start onboarding chat</strong> (Command Palette) to continue with sign-in, smoke test, mental model, and "you\'re set."</p>' +
-        '<p>If you need the extension, see the <strong>cursor-setup-extension</strong> folder in this repo.</p>' +
+        '<h2>You\'re set with Cursor</h2>' +
+        '<p>You\'ve installed Cursor, created a <strong>Practice with Cursor</strong> folder, run the smoke test on <strong>smoke-test-example.md</strong>, and read the mental model for how to use Cursor safely.</p>' +
+        '<p>Keep this page handy as a reference. From here on, you can use the same patterns on your real projects: run quick smoke tests, ask Cursor to explain code, and always verify and validate before you ship.</p>' +
         '<div class="actions" style="justify-content: center; margin-top: 24px;">' +
           '<button class="btn btn-back" data-back-congrats>Back to guide</button>' +
         '</div>' +
