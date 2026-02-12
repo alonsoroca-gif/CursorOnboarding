@@ -62,6 +62,7 @@ cursor-onboarding-kit/
 ├─ docs/
 │  ├─ setup.md                  # OS-specific setup instructions
 │  ├─ setup-chat.html           # Step-by-step setup (learn/apply, open in browser)
+│  ├─ onboarding-pm.html        # PM-focused onboarding (Chat, Composer, reading code/PRs)
 │  ├─ setup-flow.json           # Setup flow data (for chat UI or bots)
 │  ├─ mental-model.md           # How to think with Cursor (trust, verify, guardrails)
 │  ├─ troubleshooting.md        # Common issues and solutions
@@ -88,6 +89,7 @@ cursor-onboarding-kit/
 
 ### For New Users
 1. **Part 1 (webpage):** Open **[docs/setup-chat.html](docs/setup-chat.html)** in your browser — steps 1–4 (download & install Cursor). At the end you’ll see “Continue in Cursor.”
+   - **Product managers:** Use **[docs/onboarding-pm.html](docs/onboarding-pm.html)** for a PM-focused path (Chat, Composer, reading code/PRs; moderate–high difficulty).
 2. **Part 2 (in Cursor):** Open Cursor, then run **Cursor Setup: Start onboarding chat** from the Command Palette (install the [cursor-setup-extension](cursor-setup-extension/) first if needed). Part 2 covers sign-in, smoke test, mental model, and “you’re set.”
 3. Read [how to think with Cursor](docs/mental-model.md) (when to trust, verify, guardrails)
 4. Try one of the example workflows in [examples/](examples/)

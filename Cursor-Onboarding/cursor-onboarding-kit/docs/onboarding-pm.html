@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cursor setup: learn & apply</title>
+  <title>Cursor for PMs: high-value features</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -36,11 +36,6 @@
     .bubble .content a { color: #0066cc; text-decoration: none; }
     .bubble .content a:hover { text-decoration: underline; }
     .bubble .content br { display: block; content: ""; margin-top: 0.35em; }
-    .os-block { margin-top: 12px; padding: 12px; background: #f7f7f8; border-radius: 10px; font-size: 0.9rem; }
-    .os-block > strong { display: block; margin-bottom: 8px; color: #1a1a1a; }
-    .os-steps { margin: 0; padding-left: 1.35rem; }
-    .os-steps li { margin-bottom: 6px; line-height: 1.5; }
-    .os-steps li:last-child { margin-bottom: 0; }
     .bubble .content code { font-size: 0.85em; background: #e8e8e8; padding: 2px 6px; border-radius: 4px; }
     .actions { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; }
     .btn {
@@ -50,73 +45,52 @@
       transition: background 0.15s;
     }
     .btn:hover { background: #333; }
-    .btn:disabled { opacity: 0.6; cursor: default; }
     .btn-back { background: #fff; color: #1a1a1a; border: 1px solid #e5e5e5; }
     .btn-back:hover { background: #f0f0f0; }
     .btn-download {
-      background: #0066cc; margin-right: 8px; margin-bottom: 8px;
-      color: #fff !important; text-decoration: none; font-weight: 500; font-size: 0.9rem;
+      background: #0066cc; color: #fff !important; text-decoration: none; font-weight: 500; font-size: 0.9rem;
     }
     .btn-download:hover { background: #0052a3; color: #fff; }
-    .bubble .content .btn-download { color: #fff; }
-    .screenshot-placeholder {
-      margin-top: 12px; padding: 24px; background: #e8e8ed; border-radius: 10px;
-      font-size: 0.85rem; color: #6b6b6b; text-align: center;
+    .progress-bar-wrap { width: 100%; height: 6px; background: #e5e5e5; border-radius: 3px; overflow: hidden; margin-top: 16px; }
+    .progress-bar-fill { height: 100%; background: #1a1a1a; border-radius: 3px; width: 0%; transition: width 0.3s ease; }
+    .task-block { margin-top: 16px; padding: 16px; background: #f0f6fc; border: 1px solid #c8e1ff; border-radius: 12px; font-size: 0.9rem; }
+    .task-block strong { color: #1a1a1a; }
+    .task-block .task-label { font-size: 0.75rem; font-weight: 600; color: #0066cc; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 8px; }
+    .mental-model-doc {
+      font-size: 0.9rem; line-height: 1.55; color: #1a1a1a; margin-top: 12px;
+      padding: 16px; background: #f7f7f8; border: 1px solid #e5e5e5; border-radius: 10px;
+      max-height: 400px; overflow-y: auto;
     }
-    .screenshot-placeholder img { max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 0 auto 8px; }
-    .download-buttons { margin: 12px 0; display: flex; flex-wrap: wrap; gap: 10px; }
+    .mental-model-doc h4 { font-size: 0.95rem; margin: 14px 0 6px; font-weight: 600; }
+    .mental-model-doc ul, .mental-model-doc ol { margin: 6px 0; padding-left: 1.25rem; }
+    .mental-model-doc li { margin-bottom: 4px; }
+    .mental-model-doc p { margin: 0 0 8px; }
+    .survey-form { margin-top: 16px; text-align: center; }
+    .survey-form .btn-download { display: inline-block; margin-top: 8px; }
+    .survey-q { font-weight: 600; color: #1a1a1a; margin: 16px 0 8px; font-size: 0.95rem; }
+    .welcome-logo-wrap { text-align: center; margin-bottom: 20px; }
+    .welcome-logo { max-width: 120px; height: auto; display: block; margin: 0 auto; }
     .congrats { text-align: center; padding: 32px 24px; }
     .congrats .congrats-icon { font-size: 3rem; margin-bottom: 16px; }
     .congrats h2 { font-size: 1.5rem; margin: 0 0 12px; color: #1a1a1a; }
     .congrats p { font-size: 1rem; line-height: 1.6; color: #3a3a3a; margin: 0 0 24px; max-width: 480px; margin-left: auto; margin-right: auto; }
-    .welcome-logo-wrap { text-align: center; margin-bottom: 20px; width: 100%; padding: 0; }
-    .welcome-logo {
-      width: 100%; max-width: 100%; height: auto; display: block;
-    }
-    .install-video { width: 100%; max-width: 560px; border-radius: 10px; margin-top: 16px; display: block; }
-    .smoke-test-download { margin-top: 12px; text-align: center; }
-    .progress-bar-wrap { width: 100%; height: 6px; background: #e5e5e5; border-radius: 3px; overflow: hidden; margin-top: 16px; }
-    .progress-bar-fill { height: 100%; background: #1a1a1a; border-radius: 3px; width: 0%; transition: width 0.3s ease; }
-    .mental-model-doc {
-      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, "Cascadia Code", monospace;
-      font-size: 0.8rem; line-height: 1.55; color: #1a1a1a; margin-top: 12px;
-      padding: 16px; background: #f7f7f8; border: 1px solid #e5e5e5; border-radius: 10px;
-      max-height: 420px; overflow-y: auto;
-    }
-    .mental-model-doc h3 { font-size: 0.95rem; margin: 0 0 10px; font-weight: 600; }
-    .mental-model-doc h4 { font-size: 0.85rem; margin: 14px 0 6px; font-weight: 600; }
-    .mental-model-doc ul, .mental-model-doc ol { margin: 6px 0; padding-left: 1.25rem; }
-    .mental-model-doc li { margin-bottom: 4px; }
-    .mental-model-doc p { margin: 0 0 8px; }
-    .mental-model-doc strong { font-weight: 600; }
-    .survey-form { margin-top: 16px; text-align: center; }
-    .survey-form .btn-download { display: inline-block; margin-top: 8px; }
-    .survey-q { font-weight: 600; color: #1a1a1a; margin: 16px 0 8px; font-size: 0.95rem; }
-    .survey-q:first-child { margin-top: 0; }
-    .survey-radios { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 8px; }
-    .survey-radio { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.95rem; }
-    .survey-radio input { margin: 0; }
-    .survey-textarea { width: 100%; max-width: 100%; margin-top: 8px; padding: 12px; font-family: inherit; font-size: 0.95rem; line-height: 1.5; border: 1px solid #e5e5e5; border-radius: 10px; box-sizing: border-box; resize: vertical; min-height: 80px; }
-    .survey-textarea:focus { outline: none; border-color: #0066cc; }
   </style>
 </head>
 <body>
   <div class="container">
     <header class="header">
       <img src="screenshots/.localized/APP_ICON_2D.png" alt="" class="header-icon">
-      <h1>Cursor setup</h1>
-      <p>Step by step, learn and apply as you go</p>
-      <p style="font-size:0.85rem;margin:8px 0 0;"><a href="onboarding-pm.html">Product managers: Cursor for PMs</a></p>
+      <h1>Cursor for PMs</h1>
+      <p>High-value features. Moderate to high difficulty. Real tasks.</p>
       <div class="progress-bar-wrap" id="progress-bar-wrap"><div class="progress-bar-fill" id="progress-bar-fill"></div></div>
     </header>
     <div class="thread" id="thread">
-      <!-- Static fallback when JS is disabled or blocked (e.g. strict CSP on Vercel) -->
       <div class="message visible" data-step="0">
         <div class="bubble">
-          <div class="label">Step 1 of 9</div>
+          <div class="label">Step 1 of 8</div>
           <div class="welcome-logo-wrap"><img src="screenshots/cursor-logo.svg" alt="Cursor" class="welcome-logo"></div>
-          <div class="title">Welcome</div>
-          <div class="content">Let's get Cursor on your machine. This is <strong>Part 1</strong>: we'll take you through download and install. You do each part, then tap <strong>Next</strong> when you're ready.<br><br>If your company blocks installs or SSO, reach <strong>#ask-it</strong> on Slack first.</div>
+          <div class="title">Who this is for</div>
+          <div class="content">This path is for <strong>product and program managers</strong>. You'll learn the features that help you most: drafting and editing docs in Chat, making structured edits with Composer, and reading or summarizing code and PRs. Difficulty: <strong>moderate to high</strong>. You'll do real tasks in Cursor.</div>
           <div class="actions">
             <button class="btn" data-next>Next</button>
           </div>
@@ -124,7 +98,7 @@
       </div>
     </div>
   </div>
-  <noscript><p style="text-align:center;padding:16px;color:#6b6b6b;font-size:0.9rem;">Enable JavaScript to go through all steps and use Next/Back.</p></noscript>
-  <script src="setup-chat.js"></script>
+  <noscript><p style="text-align:center;padding:16px;color:#6b6b6b;font-size:0.9rem;">Enable JavaScript to go through all steps.</p></noscript>
+  <script src="onboarding-pm.js"></script>
 </body>
 </html>

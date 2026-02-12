@@ -1,7 +1,8 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/setup", "destination": "/docs/setup-chat.html" },
-    { "source": "/setup-chat", "destination": "/docs/setup-chat.html" }
+    {"source": "/", "destination": "/index.html"},
+    {"source": "/setup", "destination": "/docs/setup-chat.html"},
+    {"source": "/setup-chat", "destination": "/docs/setup-chat.html"},
+    {"source": "/onboarding-pm", "destination": "/docs/onboarding-pm.html"}
   ]
 }
