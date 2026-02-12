@@ -31,7 +31,7 @@
     },
     {
       title: "Download the smoke test file",
-      body: "Download the **smoke test file** you'll use in Part 2 inside Cursor. Save it somewhere easy to find (Desktop or your dev folder). When you're in Cursor later, you'll open this file to verify the AI is working.",
+      body: "Create a folder on your machine called **\"Practice with Cursor\"** (for example on your Desktop or in your dev workspace).\n\nThen download the **smoke test file** you'll use in Part 2 inside Cursor and save it into that folder. When you open Cursor later, you'll choose this **\"Practice with Cursor\"** folder so you can open the smoke test file and verify the AI is working.",
       smokeTestFile: true
     },
     {
