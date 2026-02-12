@@ -10,7 +10,7 @@
   const steps = [
     {
       title: "Welcome",
-      body: "Let's get Cursor on your machine. This is **Part 1** — we'll take you through download and install. You do each part, then tap **Next** when you're ready.\n\nIf your company blocks installs or SSO, reach **#ask-it** on Slack first.",
+      body: "Let's get Cursor on your machine. This is **Part 1**: we'll take you through download and install. You do each part, then tap **Next** when you're ready.\n\nIf your company blocks installs or SSO, reach **#ask-it** on Slack first.",
       welcomeImage: true
     },
     {
@@ -102,9 +102,9 @@
 <h4>Your Responsibilities</h4>
 <p>When using Cursor, you are responsible for:</p>
 <ol>
-<li><strong>Verifying logic</strong> — Does the generated code do what you intend? Does the reasoning hold up?</li>
-<li><strong>Validating outputs</strong> — Run tests, spot-check results, review diffs before committing.</li>
-<li><strong>Applying appropriate guardrails</strong> — Know what not to send to Cursor (sensitive information, e.g. credentials or PII); understand your company's policy on AI tools and permissions.</li>
+<li><strong>Verifying logic</strong>: Does the generated code do what you intend? Does the reasoning hold up?</li>
+<li><strong>Validating outputs</strong>: Run tests, spot-check results, review diffs before committing.</li>
+<li><strong>Applying appropriate guardrails</strong>: Know what not to send to Cursor (sensitive information, e.g. credentials or PII); understand your company's policy on AI tools and permissions.</li>
 </ol>
 
 <h4>When to Trust Cursor</h4>
@@ -124,10 +124,10 @@
 
 <h4>How to Validate Generated Code</h4>
 <ul>
-<li><strong>Run tests</strong> — If the project has tests, run them after applying Cursor's changes.</li>
-<li><strong>Review the diff</strong> — Don't accept large changes without reading what changed.</li>
-<li><strong>Spot-check behavior</strong> — Run the app or script with a few inputs; confirm edge cases if it matters.</li>
-<li><strong>Check permissions and context</strong> — Ensure Cursor didn't suggest sending or logging data you don't want to expose.</li>
+<li><strong>Run tests</strong>: If the project has tests, run them after applying Cursor's changes.</li>
+<li><strong>Review the diff</strong>: Don't accept large changes without reading what changed.</li>
+<li><strong>Spot-check behavior</strong>: Run the app or script with a few inputs; confirm edge cases if it matters.</li>
+<li><strong>Check permissions and context</strong>: Ensure Cursor didn't suggest sending or logging data you don't want to expose.</li>
 </ul>
 
 <h4>Safe vs Unsafe Usage</h4>
@@ -189,7 +189,7 @@
         : null;
       content += '<div class="survey-form">';
       if (surveyUrl) {
-        content += '<p class="survey-q">Open the survey in a new tab, answer the questions, then click <strong>I\'ve completed the survey — Finish</strong> below.</p>' +
+        content += '<p class="survey-q">Open the survey in a new tab, answer the questions, then click <strong>I\'ve completed the survey. Finish</strong> below.</p>' +
           '<a href="' + surveyUrl + '" target="_blank" rel="noopener" class="btn btn-download">Open survey (Google Form)</a>';
       } else {
         content += '<p class="survey-q">Survey link not configured. Set <code>SURVEY_GOOGLE_FORM_URL</code> in setup-chat.js to your Google Form URL (see README).</p>';
@@ -219,7 +219,7 @@
     var isLast = step.last || index === total - 1;
     var backBtn = index > 0 ? '<button class="btn btn-back" data-back>Back</button>' : "";
     var logoBlock = step.welcomeImage ? '<div class="welcome-logo-wrap"><img src="screenshots/cursor-logo.svg" alt="Cursor" class="welcome-logo"></div>' : "";
-    var nextLabel = (isLast && step.survey) ? "I've completed the survey — Finish" : (isLast ? "Done" : "Next");
+    var nextLabel = (isLast && step.survey) ? "I've completed the survey. Finish" : (isLast ? "Done" : "Next");
     div.innerHTML =
       '<div class="bubble">' +
         '<div class="label">Step ' + (index + 1) + ' of ' + total + '</div>' +
