@@ -58,8 +58,8 @@
       last: true
     }
   ];
-  // Replace with your Formspree form ID to record survey responses: https://formspree.io
-  const SURVEY_FORM_ACTION = "https://formspree.io/f/YOUR_FORM_ID";
+  // Google Form URL for the survey (Step 9). Create a form at forms.google.com, add your questions (e.g. "Was this helpful?", "Any advice?"), then paste the "View form" link here. Responses go to your Google Sheet.
+  const SURVEY_GOOGLE_FORM_URL = "https://forms.gle/zN8mDUkJF3odbdmw7";
   const osBlocks = {
     macos: {
       label: "macOS",
@@ -184,17 +184,17 @@
       content += '<div class="mental-model-doc">' + MENTAL_MODEL_RESPONSIBILITIES_HTML + '</div>';
     }
     if (step.survey) {
-      content +=
-        '<form id="onboarding-survey-form" class="survey-form">' +
-          '<p class="survey-q">Did you find this onboarding helpful?</p>' +
-          '<div class="survey-radios">' +
-            '<label class="survey-radio"><input type="radio" name="helpful" value="Yes" required> Yes</label>' +
-            '<label class="survey-radio"><input type="radio" name="helpful" value="No"> No</label>' +
-            '<label class="survey-radio"><input type="radio" name="helpful" value="Somewhat"> Somewhat</label>' +
-          '</div>' +
-          '<p class="survey-q">Any advice or feedback? (optional)</p>' +
-          '<textarea name="advice" class="survey-textarea" rows="4" placeholder="What could we do better?"></textarea>' +
-        '</form>';
+      var surveyUrl = (typeof SURVEY_GOOGLE_FORM_URL !== "undefined" && SURVEY_GOOGLE_FORM_URL && SURVEY_GOOGLE_FORM_URL.indexOf("YOUR_FORM_ID") === -1)
+        ? SURVEY_GOOGLE_FORM_URL
+        : null;
+      content += '<div class="survey-form">';
+      if (surveyUrl) {
+        content += '<p class="survey-q">Open the survey in a new tab, answer the questions, then click <strong>I\'ve completed the survey — Finish</strong> below.</p>' +
+          '<a href="' + surveyUrl + '" target="_blank" rel="noopener" class="btn btn-download">Open survey (Google Form)</a>';
+      } else {
+        content += '<p class="survey-q">Survey link not configured. Set <code>SURVEY_GOOGLE_FORM_URL</code> in setup-chat.js to your Google Form URL (see README).</p>';
+      }
+      content += '</div>';
     }
     if (step.smokeTestFile) {
       content += '<div class="smoke-test-download"><a href="smoke-test-example.md" download class="btn btn-download">Download smoke-test-example.md</a></div>';
@@ -219,7 +219,7 @@
     var isLast = step.last || index === total - 1;
     var backBtn = index > 0 ? '<button class="btn btn-back" data-back>Back</button>' : "";
     var logoBlock = step.welcomeImage ? '<div class="welcome-logo-wrap"><img src="screenshots/cursor-logo.svg" alt="Cursor" class="welcome-logo"></div>' : "";
-    var nextLabel = (isLast && step.survey) ? "Submit & finish" : (isLast ? "Done" : "Next");
+    var nextLabel = (isLast && step.survey) ? "I've completed the survey — Finish" : (isLast ? "Done" : "Next");
     div.innerHTML =
       '<div class="bubble">' +
         '<div class="label">Step ' + (index + 1) + ' of ' + total + '</div>' +
@@ -234,25 +234,7 @@
     var nextBtn = div.querySelector("[data-next]");
     nextBtn.addEventListener("click", function () {
       if (isLast && step.survey) {
-        var form = div.querySelector("#onboarding-survey-form");
-        if (form && form.checkValidity()) {
-          var formData = new FormData(form);
-          formData.append("_subject", "Cursor onboarding survey");
-          var action = typeof SURVEY_FORM_ACTION !== "undefined" && SURVEY_FORM_ACTION && SURVEY_FORM_ACTION.indexOf("YOUR_FORM_ID") === -1
-            ? SURVEY_FORM_ACTION
-            : null;
-          if (action) {
-            fetch(action, { method: "POST", body: formData, headers: { "Accept": "application/json" } })
-              .then(function () { showCongrats(); })
-              .catch(function () { showCongrats(); });
-          } else {
-            showCongrats();
-          }
-        } else if (form) {
-          form.reportValidity();
-        } else {
-          showCongrats();
-        }
+        showCongrats();
       } else if (isLast) showCongrats();
       else show(index + 1);
     });

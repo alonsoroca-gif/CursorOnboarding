@@ -131,15 +131,16 @@ The repo includes a `vercel.json` that serves the site as static files and adds 
 
 **After editing the setup chat or other deployed files:** commit and push so Vercel redeploys and you can see changes in real time. (Unpushed changes won’t appear on the live site.)
 
-### Recording survey responses (Step 8)
+### Recording survey responses (Step 9)
 
-The onboarding flow ends with a short survey (helpful? + optional advice). To **record** those responses:
+The onboarding flow ends with a short survey (e.g. “Was this helpful?” and “Any advice?”). Responses are collected via **Google Forms** and saved to a Google Sheet:
 
-1. Create a form at [formspree.io](https://formspree.io) and get your form ID.
-2. In **docs/setup-chat.js**, set `SURVEY_FORM_ACTION` to `https://formspree.io/f/YOUR_FORM_ID` (replace with your ID).
-3. Submissions will appear in your Formspree dashboard and can be emailed to you.
+1. Go to [Google Forms](https://forms.google.com) and create a new form.
+2. Add your questions (e.g. “Did you find this onboarding helpful?” with options Yes / No / Somewhat, and “Any advice or feedback?” as a paragraph).
+3. Click **Send** → link icon → copy the “View form” URL (e.g. `https://docs.google.com/forms/d/e/.../viewform`).
+4. In **docs/setup-chat.js**, set `SURVEY_GOOGLE_FORM_URL` to that URL (replace `YOUR_FORM_ID` or the whole placeholder).
 
-If you leave the placeholder `YOUR_FORM_ID`, the survey still appears and users can click "Submit & finish," but responses are not sent anywhere until you set a real Formspree endpoint.
+Users will see an **Open survey (Google Form)** button on Step 9, then click **I've completed the survey — Finish** when done. Responses appear in the **Responses** tab of your form (and can be linked to a Google Sheet).
 
 ## Contributing
 
