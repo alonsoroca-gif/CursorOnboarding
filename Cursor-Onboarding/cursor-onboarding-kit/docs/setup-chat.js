@@ -11,7 +11,11 @@
     {
       title: "Welcome",
       body: "Let's get Cursor on your machine. This is **Part 1** — we'll take you through download and install. You do each part, then tap **Next** when you're ready.\n\nIf your company blocks installs or SSO, reach **#ask-it** on Slack first.",
-      welcomeImage: true,
+      welcomeImage: true
+    },
+    {
+      title: "Start fresh: What is Cursor?",
+      body: "Before we get into setup, here's the big picture.",
       cursorIsIsNot: true
     },
     {
@@ -42,8 +46,8 @@
       last: false
     },
     {
-      title: "Your responsibilities with Cursor",
-      body: "When you use Cursor, you own the outcome. Below are your responsibilities: verify, validate, guardrails, and when to double-check.",
+      title: "The mental model: Some advice for success",
+      body: "When you use Cursor, you own the outcome. Below: your responsibilities (verify, validate, guardrails) and when to double-check.",
       mentalModelResponsibilities: true,
       last: false
     },
