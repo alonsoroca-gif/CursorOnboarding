@@ -35,13 +35,26 @@
       smokeTestFile: true
     },
     {
-      title: "Open Cursor, run the smoke test, and learn the mental model",
-      body: "**Part 2 now happens entirely inside Cursor.** You'll open your **\"Practice with Cursor\"** folder, run a quick smoke test on `smoke-test-example.md`, and then read how we expect you to use Cursor day to day.\n\n**1. Open the Practice with Cursor folder in Cursor**\n- Launch **Cursor**.\n- On the first screen, click **Open project**.\n- Choose the **\"Practice with Cursor\"** folder you created in the previous step.\n\n**2. Run the smoke test**\n- In the left sidebar, open `smoke-test-example.md`.\n- Open Chat:\n  - Mac: **Cmd+Shift+L**\n  - Windows / Linux: **Ctrl+Shift+L**\n- Paste this prompt into Chat and send it:\n\n`Summarize the \"Sample paragraph\" in this file in your own words, and tell me one way I might use Cursor on real code next.`\n\nIf the answer basically makes sense and matches the paragraph, your AI setup is working.\n\n**3. Read how to use Cursor safely**\nScroll through the mental model below (verify, validate, guardrails, when to double-check). This is the baseline for how we expect you to work with Cursor.",
-      mentalModel: true,
+      title: "Open Cursor and run the smoke test",
+      body: "**Part 2 happens inside Cursor.** Open your **\"Practice with Cursor\"** folder and run a quick smoke test on `smoke-test-example.md`.\n\n**1. Open the Practice with Cursor folder in Cursor**\n- Launch **Cursor**.\n- On the first screen, click **Open project**.\n- Choose the **\"Practice with Cursor\"** folder you created in the previous step.\n\n**2. Run the smoke test**\n- In the left sidebar, open `smoke-test-example.md`.\n- Open Chat:\n  - Mac: **Cmd+Shift+L**\n  - Windows / Linux: **Ctrl+Shift+L**\n- Paste this prompt into Chat and send it:\n\n`Summarize the \"Sample paragraph\" in this file in your own words, and tell me one way I might use Cursor on real code next.`\n\nIf the answer basically makes sense and matches the paragraph, your AI setup is working.",
       handoff: false,
+      last: false
+    },
+    {
+      title: "Read how to use Cursor safely",
+      body: "This is the baseline for how we expect you to work with Cursor: verify, validate, guardrails, and when to double-check. Scroll through the mental model below.",
+      mentalModel: true,
+      last: false
+    },
+    {
+      title: "Quick survey",
+      body: "We'd love to know if this onboarding was helpful and any advice you have. Your responses are recorded so we can improve the guide.",
+      survey: true,
       last: true
     }
   ];
+  // Replace with your Formspree form ID to record survey responses: https://formspree.io
+  const SURVEY_FORM_ACTION = "https://formspree.io/f/YOUR_FORM_ID";
   const osBlocks = {
     macos: {
       label: "macOS",
@@ -160,6 +173,19 @@
     if (step.mentalModel) {
       content += '<div class="mental-model-doc">' + MENTAL_MODEL_HTML + '</div>';
     }
+    if (step.survey) {
+      content +=
+        '<form id="onboarding-survey-form" class="survey-form">' +
+          '<p class="survey-q">Did you find this onboarding helpful?</p>' +
+          '<div class="survey-radios">' +
+            '<label class="survey-radio"><input type="radio" name="helpful" value="Yes" required> Yes</label>' +
+            '<label class="survey-radio"><input type="radio" name="helpful" value="No"> No</label>' +
+            '<label class="survey-radio"><input type="radio" name="helpful" value="Somewhat"> Somewhat</label>' +
+          '</div>' +
+          '<p class="survey-q">Any advice or feedback? (optional)</p>' +
+          '<textarea name="advice" class="survey-textarea" rows="4" placeholder="What could we do better?"></textarea>' +
+        '</form>';
+    }
     if (step.smokeTestFile) {
       content += '<div class="smoke-test-download"><a href="smoke-test-example.md" download class="btn btn-download">Download smoke-test-example.md</a></div>';
     }
@@ -183,6 +209,7 @@
     var isLast = step.last || index === total - 1;
     var backBtn = index > 0 ? '<button class="btn btn-back" data-back>Back</button>' : "";
     var logoBlock = step.welcomeImage ? '<div class="welcome-logo-wrap"><img src="screenshots/cursor-logo.svg" alt="Cursor" class="welcome-logo"></div>' : "";
+    var nextLabel = (isLast && step.survey) ? "Submit & finish" : (isLast ? "Done" : "Next");
     div.innerHTML =
       '<div class="bubble">' +
         '<div class="label">Step ' + (index + 1) + ' of ' + total + '</div>' +
@@ -191,12 +218,32 @@
         '<div class="content">' + content + '</div>' +
         '<div class="actions">' +
           backBtn +
-          '<button class="btn" data-next>' + (isLast ? "Done" : "Next") + '</button>' +
+          '<button class="btn" data-next type="' + (isLast && step.survey ? "button" : "button") + '">' + nextLabel + '</button>' +
         '</div>' +
       '</div>';
     var nextBtn = div.querySelector("[data-next]");
     nextBtn.addEventListener("click", function () {
-      if (isLast) showCongrats();
+      if (isLast && step.survey) {
+        var form = div.querySelector("#onboarding-survey-form");
+        if (form && form.checkValidity()) {
+          var formData = new FormData(form);
+          formData.append("_subject", "Cursor onboarding survey");
+          var action = typeof SURVEY_FORM_ACTION !== "undefined" && SURVEY_FORM_ACTION && SURVEY_FORM_ACTION.indexOf("YOUR_FORM_ID") === -1
+            ? SURVEY_FORM_ACTION
+            : null;
+          if (action) {
+            fetch(action, { method: "POST", body: formData, headers: { "Accept": "application/json" } })
+              .then(function () { showCongrats(); })
+              .catch(function () { showCongrats(); });
+          } else {
+            showCongrats();
+          }
+        } else if (form) {
+          form.reportValidity();
+        } else {
+          showCongrats();
+        }
+      } else if (isLast) showCongrats();
       else show(index + 1);
     });
     var backButton = div.querySelector("[data-back]");

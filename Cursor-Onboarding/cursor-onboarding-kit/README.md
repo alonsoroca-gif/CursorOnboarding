@@ -131,6 +131,16 @@ The repo includes a `vercel.json` that serves the site as static files and adds 
 
 **After editing the setup chat or other deployed files:** commit and push so Vercel redeploys and you can see changes in real time. (Unpushed changes won’t appear on the live site.)
 
+### Recording survey responses (Step 8)
+
+The onboarding flow ends with a short survey (helpful? + optional advice). To **record** those responses:
+
+1. Create a form at [formspree.io](https://formspree.io) and get your form ID.
+2. In **docs/setup-chat.js**, set `SURVEY_FORM_ACTION` to `https://formspree.io/f/YOUR_FORM_ID` (replace with your ID).
+3. Submissions will appear in your Formspree dashboard and can be emailed to you.
+
+If you leave the placeholder `YOUR_FORM_ID`, the survey still appears and users can click "Submit & finish," but responses are not sent anywhere until you set a real Formspree endpoint.
+
 ## Contributing
 
 This project follows an iterative development process:

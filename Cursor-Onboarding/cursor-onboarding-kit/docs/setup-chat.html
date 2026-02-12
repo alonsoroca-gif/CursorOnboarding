@@ -89,6 +89,14 @@
     .mental-model-doc li { margin-bottom: 4px; }
     .mental-model-doc p { margin: 0 0 8px; }
     .mental-model-doc strong { font-weight: 600; }
+    .survey-form { margin-top: 16px; }
+    .survey-q { font-weight: 600; color: #1a1a1a; margin: 16px 0 8px; font-size: 0.95rem; }
+    .survey-q:first-child { margin-top: 0; }
+    .survey-radios { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 8px; }
+    .survey-radio { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.95rem; }
+    .survey-radio input { margin: 0; }
+    .survey-textarea { width: 100%; max-width: 100%; margin-top: 8px; padding: 12px; font-family: inherit; font-size: 0.95rem; line-height: 1.5; border: 1px solid #e5e5e5; border-radius: 10px; box-sizing: border-box; resize: vertical; min-height: 80px; }
+    .survey-textarea:focus { outline: none; border-color: #0066cc; }
   </style>
 </head>
 <body>
@@ -103,7 +111,7 @@
       <!-- Static fallback when JS is disabled or blocked (e.g. strict CSP on Vercel) -->
       <div class="message visible" data-step="0">
         <div class="bubble">
-          <div class="label">Step 1 of 6</div>
+          <div class="label">Step 1 of 8</div>
           <div class="welcome-logo-wrap"><img src="screenshots/cursor-logo.svg" alt="Cursor" class="welcome-logo"></div>
           <div class="title">Welcome</div>
           <div class="content">Let's get Cursor on your machine. This is <strong>Part 1</strong> — we'll take you through download and install. You do each part, then tap <strong>Next</strong> when you're ready.<br><br>If your company blocks installs or SSO, reach <strong>#ask-it</strong> on Slack first.</div>
