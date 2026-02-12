@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 
 /** Starter prompt for Part 2 (steps 5–8). User can send this in Chat to begin the in-Cursor onboarding. */
 const STARTER_PROMPT =
-  "I've installed Cursor and opened it. I'm ready for Part 2 of setup. Walk me through: (1) sign-in, (2) the smoke test to verify AI works, (3) the mental model (verify, validate, guardrails), and (4) what to do next. Go step by step.";
+  "I've finished Part 1 of the Cursor onboarding webpage. Cursor is installed and I've downloaded the smoke test file `smoke-test-example.md` from the page. I'm ready for Part 2 inside Cursor. Please guide me step by step: (1) confirm I'm signed in (and tell me exactly how to sign in if I'm not), (2) have me open `smoke-test-example.md` and run a smoke test on it so I can verify AI is working, (3) walk me through the mental model for using Cursor safely (verify, validate, guardrails, when to double-check), and (4) give me 3–4 concrete prompts I should try in my own repos over the next week. Go one step at a time and wait for my confirmation before moving on.";
 
 /** Suggested follow-up prompts the user can try in Chat. */
 const SUGGESTED_PROMPTS = [

@@ -8,11 +8,34 @@
     linux: "https://api2.cursor.sh/updates/download/golden/linux-x64-deb/cursor/2.4"
   };
   const steps = [
-    { title: "Welcome", body: "Let's get Cursor on your machine. This is **Part 1** — we'll take you through download and install. You do each part, then tap **Next** when you're ready.\n\nIf your company blocks installs or SSO, reach **#ask-it** on Slack first.", welcomeImage: true },
-    { title: "Check prerequisites", body: "Before downloading, confirm:\n\n• **OS:** macOS, Windows, or Linux\n• **Access:** Admin/sudo (or Windows User install)\n• **Internet:** Required (Cursor uses cloud AI)\n• **RAM:** 8 GB min, 16 GB recommended for large codebases\n• **Account:** GitHub or work account for sign-in" },
-    { title: "Download Cursor", body: "Choose your OS below to open the download page. Pick the right build (e.g. Mac ARM64 for Apple Silicon, Windows User if you don't have admin).", downloadButtons: true },
-    { title: "Install Cursor", body: "Follow the steps for your OS below. Click your OS to open the install page if you haven't downloaded yet. Watch the short install walkthrough below.", osBlocks: true, installVideo: true, downloadButtons: true },
-    { title: "Continue in Cursor", body: "**Part 1 done.** Cursor is (or will be) on your machine.\n\n**Next:** Open Cursor. Then, inside Cursor, run the **onboarding chat** to continue with sign-in, smoke test, mental model, and \"you're set.\"\n\n**How to run the onboarding chat:**\n1. Open Cursor.\n2. Open the Command Palette: **Cmd+Shift+P** (Mac) or **Ctrl+Shift+P** (Windows/Linux).\n3. Run: **Cursor Setup: Start onboarding chat**.\n\nIf you don't see that command yet, install the **Cursor Setup** extension from this repo (see README in the extension folder), then run the command again.\n\nYou'll complete Part 2 (sign-in, verify AI, mental model) in Cursor's Chat — the same place you'll use every day.", handoff: true, last: true }
+    {
+      title: "Welcome",
+      body: "Let's get Cursor on your machine. This is **Part 1** — we'll take you through download and install. You do each part, then tap **Next** when you're ready.\n\nIf your company blocks installs or SSO, reach **#ask-it** on Slack first.",
+      welcomeImage: true
+    },
+    {
+      title: "Check prerequisites",
+      body: "Before downloading, confirm:\n\n• **OS:** macOS, Windows, or Linux\n• **Access:** Admin/sudo (or Windows User install)\n• **Internet:** Required (Cursor uses cloud AI)\n• **RAM:** 8 GB min, 16 GB recommended for large codebases\n• **Account:** GitHub or work account for sign-in"
+    },
+    {
+      title: "Download Cursor & smoke test file",
+      body: "First, choose your OS below to open the Cursor download page. Pick the right build (e.g. Mac ARM64 for Apple Silicon, Windows User if you don't have admin).\n\nThen download the **smoke test file** you'll use in Part 2 inside Cursor. Save it somewhere easy to find (Desktop or your dev folder).",
+      downloadButtons: true,
+      smokeTestFile: true
+    },
+    {
+      title: "Install Cursor",
+      body: "Follow the steps for your OS below. Click your OS to open the install page if you haven't downloaded yet. Watch the short install walkthrough below.",
+      osBlocks: true,
+      installVideo: true,
+      downloadButtons: true
+    },
+    {
+      title: "Continue in Cursor",
+      body: "**Part 1 done.** Cursor is (or will be) on your machine, and you have **smoke-test-example.md** downloaded for the quick AI check in Part 2.\n\n**Next:** Open Cursor. Then, inside Cursor, run the **onboarding chat** to continue with sign-in, smoke test, mental model, and \"you're set.\"\n\n**How to run the onboarding chat:**\n1. Open Cursor.\n2. Open the Command Palette: **Cmd+Shift+P** (Mac) or **Ctrl+Shift+P** (Windows/Linux).\n3. Type exactly: **Cursor Setup: Start onboarding chat** and press **Enter**.\n\n**Make sure the Cursor Setup extension is installed:**\n- If your team gave you a `.vsix` file, go to **Extensions → ... → Install from VSIX...**, choose that file, then reload Cursor.\n- After install, the **Cursor Setup: Start onboarding chat** command will appear in the Command Palette.\n\n**If the command still isn't there:**\n- Open Chat directly (**Cmd+Shift+L / Ctrl+Shift+L**) and paste the starter prompt from our internal onboarding doc.\n- Use the **smoke-test-example.md** file you downloaded in Step 3 for the smoke test.\n\nYou'll complete Part 2 (sign-in, verify AI, mental model) in Cursor's Chat — the same place you'll use every day.",
+      handoff: true,
+      last: true
+    }
   ];
   const osBlocks = {
     macos: {
