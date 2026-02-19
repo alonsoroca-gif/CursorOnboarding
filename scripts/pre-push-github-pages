@@ -11,10 +11,10 @@ done
 cd "$ROOT"
 [[ -x "$ROOT/sync-docs-for-pages.sh" ]] || exit 0
 "$ROOT/sync-docs-for-pages.sh" >/dev/null 2>&1
-if ! git diff --quiet -- "docs/" "index.html" "onboarding-pm.html" "onboarding-pm.js" "setup-chat.html" "setup-chat.js" "screenshots/" ".nojekyll" 2>/dev/null; then
+if ! git diff --quiet -- "docs/" "index.html" "onboarding-pm.html" "onboarding-pm.js" "setup-chat.html" "setup-chat.js" "cursor-rules.html" "cursor-rules.js" "screenshots/" ".nojekyll" 2>/dev/null; then
   echo ""
   echo "⚠️  Sync updated files. Commit them so the live site gets your changes:"
-  echo "   git add docs index.html onboarding-pm.html onboarding-pm.js setup-chat.html setup-chat.js screenshots .nojekyll"
+  echo "   git add docs index.html onboarding-pm.html onboarding-pm.js setup-chat.html setup-chat.js cursor-rules.html cursor-rules.js screenshots .nojekyll"
   echo "   git commit -m \"Sync docs and root for Pages\""
   echo "   git push origin main"
   echo "   (Or run: ./push)"

@@ -18,13 +18,23 @@
       padding: 24px;
     }
     .container { max-width: 560px; width: 100%; text-align: center; }
+    .logo-wrap {
+      display: block;
+      margin: 0 auto 24px;
+      width: 72px;
+      height: 72px;
+    }
     .logo {
       width: 72px;
       height: 72px;
-      margin: 0 auto 24px;
       display: block;
       object-fit: contain;
       filter: brightness(1.05);
+      animation: logo-spin 12s linear infinite;
+    }
+    @keyframes logo-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
     h1 { font-size: 1.75rem; font-weight: 600; margin: 0 0 8px; color: #fff; }
     .subtitle { font-size: 1rem; color: #8e8e93; margin: 0 0 32px; line-height: 1.5; }
@@ -56,7 +66,7 @@
 </head>
 <body>
   <div class="container">
-    <img src="screenshots/cursor-logo.svg" alt="Cursor" class="logo">
+    <span class="logo-wrap"><img src="screenshots/cursor-logo.svg" alt="Cursor" class="logo"></span>
     <h1>Cursor Onboarding</h1>
     <p class="subtitle">Choose your path. We'll take you to the right guide.</p>
     <div class="paths">
@@ -68,9 +78,9 @@
         <span class="path-title">I'm a PM with some experience</span>
         <span class="path-desc">Aligned with PM Performance Expectations &amp; PM Onboarding. Chat, Composer, reading code/PRs, expectations mapping, rules, and prompt starters for ACV, Jira, discovery, backup, and triage.</span>
       </a>
-      <a href="cursor-rules-guidelines.md" class="path-link">
+      <a href="cursor-rules.html" class="path-link">
         <span class="path-title">Cursor rules &amp; guidelines</span>
-        <span class="path-desc">Reference: .cursorignore, .cursorrules, settings, and keybindings. Use this to tailor Cursor to your workflow and team standards.</span>
+        <span class="path-desc">Step-by-step: .cursorignore, .cursorrules, settings, and keybindings. Tailor Cursor to your workflow and team standards.</span>
       </a>
     </div>
   </div>

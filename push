@@ -7,7 +7,7 @@ MSG="${1:-Update onboarding and sync docs for GitHub Pages}"
 echo "→ Syncing kit docs → root docs..."
 "$ROOT/sync-docs-for-pages.sh"
 echo "→ Staging docs and root app..."
-git add docs Cursor-Onboarding/cursor-onboarding-kit/docs index.html onboarding-pm.html onboarding-pm.js setup-chat.html setup-chat.js screenshots .nojekyll 2>/dev/null || true
+git add docs Cursor-Onboarding/cursor-onboarding-kit/docs index.html onboarding-pm.html onboarding-pm.js setup-chat.html setup-chat.js cursor-rules.html cursor-rules.js screenshots .nojekyll 2>/dev/null || true
 echo "→ Committing: $MSG"
 git commit -m "$MSG" || { echo "Nothing to commit (working tree clean?)."; exit 0; }
 echo "→ Pushing to origin main..."
