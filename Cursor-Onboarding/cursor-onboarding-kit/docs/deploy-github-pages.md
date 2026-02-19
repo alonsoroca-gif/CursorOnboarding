@@ -18,6 +18,13 @@ GitHub Pages only lets you choose **root** or **docs**.
 - New users: `.../setup-chat.html`
 - PM: `.../onboarding-pm.html`
 
+**If the link still shows the README (project overview) instead of the app:** The repo now includes a **`.nojekyll`** file at the root. This tells GitHub Pages to serve files as-is (no Jekyll), so **index.html** is used as the home page instead of README. Do this:
+1. Set **Folder** to **/ (root)** in Pages settings.
+2. Commit and push the `.nojekyll` file (and ensure `index.html` is at the repo root).
+3. Wait 1–2 minutes and hard-refresh (Cmd+Shift+R). You should see the two-button app.
+
+If it still shows the README, switch **Folder** to **docs** and push so that `docs/index.html` is deployed; then the app will be at the same URL.
+
 ---
 
 ## How to re-deploy (after changes)
