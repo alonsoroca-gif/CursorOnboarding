@@ -118,10 +118,23 @@ cursor-onboarding-kit/
 4. What was missing or confusing? (free text)
 5. Would you attend a follow-up deep-dive? (Yes / No)
 
+## Next step (on your machine)
+
+To deploy the latest changes (home page with two paths + PM onboarding), push from your machine (GitHub auth is required):
+
+```bash
+cd /path/to/cursor-onboarding-kit
+git push origin main
+```
+
+If the repo is connected to Vercel, the site will redeploy automatically.
+
 ## Deploy the setup chat (optional)
 
 To get a shareable URL for the step-by-step setup (e.g. for teammates who haven’t cloned the repo):
 
+- **GitHub Pages (free, no trial):** See **[docs/deploy-github-pages.md](docs/deploy-github-pages.md)** for step-by-step instructions. You get a URL like `https://YOUR_USERNAME.github.io/cursor-onboarding-kit/` with the home page and both onboarding flows.
+- **Vercel:** Do the following:
 1. Push this repo to GitHub.
 2. Go to [vercel.com](https://vercel.com), sign in, and **Add New Project**.
 3. Import the repo. In **Settings → General → Root Directory**, set exactly (no spaces, correct casing):
