@@ -1,0 +1,70 @@
+{
+  "title": "Cursor setup",
+  "description": "Step-by-step setup flow for learn/apply. Use with setup-chat.html or a bot.",
+  "steps": [
+    {
+      "id": "welcome",
+      "title": "Welcome",
+      "message": "Let's get Cursor on your machine and verify it works. We'll do this step by step — you do each part, then tap **Next** when you're ready.\n\nIf your company blocks installs or SSO, reach **#ask-it** on Slack first.",
+      "action": "Tap **Next** when you've read this."
+    },
+    {
+      "id": "prerequisites",
+      "title": "Check prerequisites",
+      "message": "Before downloading, confirm:\n\n• **OS:** macOS, Windows, or Linux\n• **Access:** Admin/sudo (or Windows User install)\n• **Internet:** Required (Cursor uses cloud AI)\n• **RAM:** 8 GB min, 16 GB recommended for large codebases\n• **Account:** GitHub or work account for sign-in",
+      "action": "Confirm you have these, then tap **Next**."
+    },
+    {
+      "id": "download",
+      "title": "Download Cursor",
+      "message": "Download the installer for your OS:\n\n**[cursor.com](https://cursor.com)** or **[cursor.com/downloads](https://cursor.com/downloads)**\n\nChoose your OS and architecture (e.g. Mac ARM64 for Apple Silicon, Windows User if you don't have admin).",
+      "action": "Download the installer, then tap **Next**."
+    },
+    {
+      "id": "install-mac",
+      "title": "Install on macOS",
+      "platform": "macos",
+      "message": "1. Open the `.dmg` and drag **Cursor** to **Applications**.\n2. Open Cursor from Applications or Spotlight.\n3. If macOS says \"unidentified developer\": **System Settings → Privacy & Security** → allow Cursor.\n4. On first launch, grant any requested permissions (e.g. Accessibility).",
+      "action": "Finish the install and launch Cursor once, then tap **Next**."
+    },
+    {
+      "id": "install-windows",
+      "title": "Install on Windows",
+      "platform": "windows",
+      "message": "1. Run the installer (User = no admin, System = admin).\n2. Complete the steps.\n3. Launch Cursor from the Start menu or desktop shortcut.\n4. If policy blocks install, reach **#ask-it** on Slack.",
+      "action": "Finish the install and launch Cursor once, then tap **Next**."
+    },
+    {
+      "id": "install-linux",
+      "title": "Install on Linux",
+      "platform": "linux",
+      "message": "**.deb:** `sudo dpkg -i cursor*.deb` (then `sudo apt --fix-broken install` if needed)\n**.rpm:** `sudo rpm -i cursor*.rpm`\n**.AppImage:** `chmod +x Cursor*.AppImage` then run it (FUSE may be required).\n\nLaunch Cursor from your app menu or shell (`cursor` if in PATH).",
+      "action": "Finish the install and launch Cursor once, then tap **Next**."
+    },
+    {
+      "id": "sign-in",
+      "title": "Sign in",
+      "message": "In Cursor: sign in with your work email or SSO (per company policy).\n\nIf sign-in fails or loops, try **Sign out** then sign in again, or reach **#ask-it**.",
+      "action": "Sign in to Cursor, then tap **Next**."
+    },
+    {
+      "id": "verify-ai",
+      "title": "Verify AI works",
+      "message": "Quick smoke test:\n\n1. Open any file in Cursor (e.g. a `.md`).\n2. Open **Chat** (sidebar or `Cmd/Ctrl+Shift+L`).\n3. Ask: *Summarize the first paragraph.*\n\nYou should get a short reply. If not, see **troubleshooting → AI features** or **#ask-it**.",
+      "action": "Do the smoke test and see a reply, then tap **Next**."
+    },
+    {
+      "id": "mental-model",
+      "title": "Read the mental model",
+      "message": "One last step: read **Mental model: how to think with Cursor** (verify, validate, guardrails).\n\nThis is in your repo at `docs/mental-model.md`, or open it from the setup guide. It explains when to trust Cursor and when to double-check.",
+      "action": "Read the mental model doc, then tap **Next**."
+    },
+    {
+      "id": "done",
+      "title": "You're set",
+      "message": "Setup is complete. Next:\n\n• **Troubleshooting** — [docs/troubleshooting.md](troubleshooting.md)\n• **Mental model** — when to trust / double-check\n• **Example workflows** — [examples/](../examples/)\n• **Prompts** — [docs/prompts.md](prompts.md)\n\nNeed help? **#ask-it** on Slack.",
+      "action": null
+    }
+  ],
+  "platformStepIds": ["install-mac", "install-windows", "install-linux"]
+}
