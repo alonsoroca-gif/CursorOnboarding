@@ -27,6 +27,28 @@ If it still shows the README, switch **Folder** to **docs** and push so that `do
 
 ---
 
+## Fix 404 (page not found)
+
+If you get **404** when opening your Pages URL:
+
+1. **Use the right URL** (case-sensitive, with trailing slash):  
+   `https://alonsoroca-gif.github.io/CursorOnboarding/`  
+   Try with and without the trailing slash.
+
+2. **Set the source to the docs folder:**  
+   **Settings → Pages** → **Build and deployment** → **Source** → **Deploy from a branch** → **Branch:** main → **Folder:** **docs** → **Save**.  
+   The app lives in the `docs/` folder (`docs/index.html`), so Pages must publish from **docs**, not root.
+
+3. **Confirm the branch has `docs/index.html`:**  
+   On GitHub, open your repo → make sure there is a **docs** folder and inside it **index.html**, **setup-chat.html**, **onboarding-pm.html**, and **screenshots**. If your repo root only has a subfolder (e.g. Cursor-Onboarding) and the app is inside it, then at the **root** of the repo there is no **docs** folder, so "docs" in Pages will be empty and you get 404. In that case you must push so the **repo root** is the kit (so that the root has a **docs** folder). The remote should be from inside the kit folder when you push.
+
+4. **Wait 1–2 minutes** after changing the folder, then open the URL again and do a **hard refresh** (Cmd+Shift+R or Ctrl+Shift+R).
+
+5. **Check the deployment:**  
+   **Settings → Pages** → at the top it should say "Your site is live at …". If it says "Page build failure" or similar, open the link to the Actions tab and fix the reported error.
+
+---
+
 ## How to re-deploy (after changes)
 
 GitHub Pages **does not** have a "Redeploy" button. It redeploys automatically when you push to the branch you chose (e.g. `main`):
