@@ -60,6 +60,19 @@
   ];
   // Google Form URL for the survey (Step 9). Create a form at forms.google.com, add your questions (e.g. "Was this helpful?", "Any advice?"), then paste the "View form" link here. Responses go to your Google Sheet.
   const SURVEY_GOOGLE_FORM_URL = "https://forms.gle/zN8mDUkJF3odbdmw7";
+
+  const SETUP_CHAT_DETAILS = [
+    "<p><strong>Part 1</strong> covers download and install. You'll do each step, then tap Next. Part 2 (smoke test) happens inside Cursor.</p>",
+    "<p><strong>What Cursor is:</strong> An AI-enabled coding environment. It helps you write, summarize, debug, and understand code faster.</p><p><strong>What it's not:</strong> Autopilot. You decide what to accept or reject.</p>",
+    "<p>Confirm your OS, admin access, internet, RAM (8 GB min), and a GitHub or work account for sign-in before downloading.</p>",
+    "<p>Choose the build for your OS (e.g. Mac ARM64 for Apple Silicon, Windows User if you don't have admin). The buttons open the download page.</p>",
+    "<p>Follow the steps for your OS. Drag to Applications (Mac), run the installer (Windows), or use the terminal (Linux). Watch the short install video if available.</p>",
+    "<p>Create a <strong>Practice with Cursor</strong> folder and download the smoke test file into it. You'll open this folder in Cursor in the next step.</p>",
+    "<p><strong>Part 2:</strong> Open the Practice folder in Cursor, open <code>smoke-test-example.md</code>, then open Chat (Cmd+Shift+L) and paste the smoke test prompt. If the answer makes sense, AI is working.</p>",
+    "<p>Your responsibilities: verify logic, validate outputs, apply guardrails. Know when to trust Cursor and when to double-check (security, money, compliance).</p>",
+    "<p>Your feedback helps us improve the guide. Open the survey, answer the questions, then click Finish below.</p>"
+  ];
+
   const osBlocks = {
     macos: {
       label: "macOS",
@@ -165,6 +178,9 @@
     current = index;
     var fill = document.getElementById("progress-bar-fill");
     if (fill) fill.style.width = ((index + 1) / steps.length * 100) + "%";
+    var chatContent = document.getElementById("chat-content");
+    if (chatContent && SETUP_CHAT_DETAILS[index]) chatContent.innerHTML = SETUP_CHAT_DETAILS[index];
+    document.querySelectorAll(".step-outline-item").forEach(function (item, i) { item.classList.toggle("active", i === index); });
   }
 
   function buildStep(step, index) {
@@ -264,6 +280,7 @@
         '<p>You\'ve installed Cursor, created a <strong>Practice with Cursor</strong> folder, run the smoke test on <strong>smoke-test-example.md</strong>, and read the mental model for how to use Cursor safely.</p>' +
         '<p>Keep this page handy as a reference. From here on, you can use the same patterns on your real projects: run quick smoke tests, ask Cursor to explain code, and always verify and validate before you ship.</p>' +
         '<div class="actions" style="justify-content: center; margin-top: 24px;">' +
+          '<a href="index.html" class="btn btn-back">Back to home</a>' +
           '<button class="btn btn-back" data-back-congrats>Back to guide</button>' +
         '</div>' +
       '</div>';
@@ -273,5 +290,38 @@
 
   steps.forEach(function (step, i) { thread.appendChild(buildStep(step, i)); });
   thread.appendChild(buildCongrats());
+
+  var stepOutline = document.getElementById("step-outline");
+  if (stepOutline) {
+    steps.forEach(function (step, i) {
+      var item = document.createElement("div");
+      item.className = "step-outline-item" + (i === 0 ? " active" : "");
+      item.setAttribute("role", "button");
+      item.tabIndex = 0;
+      item.innerHTML = "<span class=\"step-num\">" + (i + 1) + "</span><span>" + step.title + "</span>";
+      item.addEventListener("click", function () { show(i); });
+      item.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(i); } });
+      stepOutline.appendChild(item);
+    });
+  }
+
+  document.addEventListener("keydown", function (e) {
+    var tag = document.activeElement && document.activeElement.tagName ? document.activeElement.tagName.toLowerCase() : "";
+    if (tag === "input" || tag === "textarea" || (document.activeElement && document.activeElement.getAttribute("contenteditable") === "true")) return;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      if (typeof current === "number" && current < steps.length - 1) show(current + 1);
+      else if (current === "congrats") return;
+      else if (typeof current === "number" && current === steps.length - 1) {
+        var step = steps[current];
+        if (step.survey) showCongrats();
+      }
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      if (current === "congrats") show(steps.length - 1);
+      else if (typeof current === "number" && current > 0) show(current - 1);
+    }
+  });
+
   show(0);
 })();

@@ -317,6 +317,7 @@
         '<p>You\'ve gone through the PM path—aligned with PM Performance Expectations and PM Onboarding: priorities & context, Chat, Composer, reading code/PRs, how Cursor supports your expectations, mental model, Cursor rules & guidelines, and the next-level prompt starters.</p>' +
         '<p>Use these features for ACV updates, release trackers, discovery docs, backup/transition docs, Jira, and triage. Revisit <strong>Priorities & context</strong>, <strong>How Cursor supports your PM expectations</strong>, and <strong>Take it to the next level</strong> anytime. Keep this page bookmarked.</p>' +
         '<div class="actions" style="justify-content: center; margin-top: 24px;">' +
+          '<a href="index.html" class="btn btn-back">Back to home</a>' +
           '<button class="btn btn-back" data-back-congrats>Back to guide</button>' +
         '</div>' +
       '</div>';
@@ -340,6 +341,24 @@
       stepOutline.appendChild(item);
     });
   }
+
+  document.addEventListener("keydown", function (e) {
+    var tag = document.activeElement && document.activeElement.tagName ? document.activeElement.tagName.toLowerCase() : "";
+    if (tag === "input" || tag === "textarea" || (document.activeElement && document.activeElement.getAttribute("contenteditable") === "true")) return;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      if (typeof current === "number" && current < steps.length - 1) show(current + 1);
+      else if (current === "congrats") return;
+      else if (typeof current === "number" && current === steps.length - 1) {
+        var step = steps[current];
+        if (step.survey) showCongrats();
+      }
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      if (current === "congrats") show(steps.length - 1);
+      else if (typeof current === "number" && current > 0) show(current - 1);
+    }
+  });
 
   show(0);
 })();
