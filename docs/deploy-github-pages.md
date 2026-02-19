@@ -13,7 +13,7 @@ GitHub Pages only lets you choose **root** or **docs**.
 | **/ (root)** | Serves the repo root. If there's no `index.html`, GitHub shows the README. You need an `index.html` at root that links into the kit (paths depend on your repo structure). | Works only if you have a root `index.html` and correct paths to the kit. |
 | **docs** | Serves the contents of the `docs/` folder as the site root. The repo now has `docs/index.html` (home with two buttons), `docs/setup-chat.html`, `docs/onboarding-pm.html`, and `docs/screenshots/`. | **Best option:** one folder, clean URLs, no guessing subfolder names. |
 
-**Use the docs folder:** In Settings → Pages, set **Folder** to **docs**. Then your live site will be:
+**The app is now at repo root and in docs/.** Set **Settings → Pages → Source** to **Deploy from a branch**, **Branch** main, **Folder** either **/ (root)** or **docs**. Both work; root serves the app directly. Then your live site will be:
 - Home: `https://YOUR_USERNAME.github.io/CursorOnboarding/`
 - New users: `.../setup-chat.html`
 - PM: `.../onboarding-pm.html`
@@ -64,22 +64,38 @@ If you still get 404:
 
 ---
 
+## Avoid "changes not showing" next time
+
+The live site is built from **repo root** or **docs/**. Edits live in **Cursor-Onboarding/cursor-onboarding-kit/docs/**. If you push without syncing, the site won’t update.
+
+- **Always deploy with `./push`** from the repo root. It syncs kit → docs → root, then commits and pushes.
+- **Optional:** Install the pre-push hook so a normal `git push` is blocked when root/docs are out of sync:
+  ```bash
+  cp scripts/pre-push-github-pages .git/hooks/pre-push && chmod +x .git/hooks/pre-push
+  ```
+  After that, if you push without syncing, the hook will tell you to commit the synced files (or run `./push`).
+
+---
+
 ## How to re-deploy (after changes)
 
 GitHub Pages **does not** have a "Redeploy" button. It redeploys automatically when you push to the branch you chose (e.g. `main`).
 
-**If your repo root has both `docs/` and `Cursor-Onboarding/cursor-onboarding-kit/docs/`:** the live site (when Pages is set to **docs**) serves from root **docs/** only. So after editing files in the kit, sync them into root **docs/** before committing:
+**One command (recommended):** From the **repo root**, run:
+   ```bash
+   ./push
+   ```
+   This syncs kit docs → root docs, commits, and pushes. Optional: `./push "Your commit message"` to use a custom message.
 
-1. From the **repo root** (the folder that contains `Cursor-Onboarding` and `docs`), run:
+**Or do it step by step:**
+
+1. From the **repo root**, run:
    ```bash
    ./sync-docs-for-pages.sh
    ```
-   This copies `Cursor-Onboarding/cursor-onboarding-kit/docs/` → `docs/` so the live site gets your changes.
-
-2. Commit and push (from repo root):
+2. Commit and push (include root app files so both root and docs stay in sync):
    ```bash
-   cd /path/to/your/repo
-   git add docs Cursor-Onboarding/cursor-onboarding-kit/docs
+   git add docs Cursor-Onboarding/cursor-onboarding-kit/docs index.html onboarding-pm.html onboarding-pm.js setup-chat.html setup-chat.js screenshots .nojekyll
    git commit -m "Update onboarding"
    git push origin main
    ```
