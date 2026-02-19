@@ -12,5 +12,10 @@ fi
 mkdir -p "$ROOT_DOCS"
 rsync -a --delete "$KIT_DOCS/" "$ROOT_DOCS/" --exclude='.git'
 touch "$ROOT_DOCS/.nojekyll"
-echo "Synced kit docs → root docs. Commit and push to update the live site."
-echo "  cd $ROOT && git add docs && git status"
+# Also copy app to repo root so Pages works with either "root" or "docs"
+cp "$ROOT_DOCS/index.html" "$ROOT_DOCS/onboarding-pm.html" "$ROOT_DOCS/onboarding-pm.js" "$ROOT_DOCS/setup-chat.html" "$ROOT_DOCS/setup-chat.js" "$ROOT/"
+rm -rf "$ROOT/screenshots"
+cp -R "$ROOT_DOCS/screenshots" "$ROOT/"
+touch "$ROOT/.nojekyll"
+echo "Synced kit docs → root docs and repo root. Commit and push to update the live site."
+echo "  cd $ROOT && git add docs index.html onboarding-pm.html onboarding-pm.js setup-chat.html setup-chat.js screenshots .nojekyll && git status"

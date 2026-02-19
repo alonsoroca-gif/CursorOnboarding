@@ -1,0 +1,15 @@
+#!/bin/bash
+# Sync docs, commit, and push to update GitHub Pages. Run from repo root: ./push [optional commit message]
+set -e
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+cd "$ROOT"
+MSG="${1:-Update onboarding and sync docs for GitHub Pages}"
+echo "→ Syncing kit docs → root docs..."
+"$ROOT/sync-docs-for-pages.sh"
+echo "→ Staging docs and root app..."
+git add docs Cursor-Onboarding/cursor-onboarding-kit/docs index.html onboarding-pm.html onboarding-pm.js setup-chat.html setup-chat.js screenshots .nojekyll 2>/dev/null || true
+echo "→ Committing: $MSG"
+git commit -m "$MSG" || { echo "Nothing to commit (working tree clean?)."; exit 0; }
+echo "→ Pushing to origin main..."
+git push origin main
+echo "Done. Wait 1–2 min and hard-refresh the site (Cmd+Shift+R)."
