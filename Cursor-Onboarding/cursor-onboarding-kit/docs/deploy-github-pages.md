@@ -29,7 +29,22 @@ If it still shows the README, switch **Folder** to **docs** and push so that `do
 
 ## Fix 404 (page not found)
 
-If you get **404** when opening your Pages URL:
+**Why root gives 404:** Your git repo root is the **parent folder** (e.g. Desktop), not the kit. So on GitHub the repo root has **Cursor-Onboarding/** and no `index.html` at the very top level. GitHub Pages “root” therefore has nothing to serve at `/`, so you get 404.
+
+**Fix:** An **index.html** was added at the **repo root** (the folder that contains Cursor-Onboarding). It redirects to **Cursor-Onboarding/cursor-onboarding-kit/** where the app lives. You must **commit and push that root index.html** from the parent folder:
+
+```bash
+cd /Users/alonso.roca/Desktop
+git add index.html
+git commit -m "Add root index.html redirect to app for GitHub Pages"
+git push origin main
+```
+
+Then set **Settings → Pages → Folder: / (root)** and wait 1–2 minutes. Opening the site will redirect to the app.
+
+---
+
+If you still get 404:
 
 1. **Use the right URL** (case-sensitive, with trailing slash):  
    `https://alonsoroca-gif.github.io/CursorOnboarding/`  
@@ -51,17 +66,25 @@ If you get **404** when opening your Pages URL:
 
 ## How to re-deploy (after changes)
 
-GitHub Pages **does not** have a "Redeploy" button. It redeploys automatically when you push to the branch you chose (e.g. `main`):
+GitHub Pages **does not** have a "Redeploy" button. It redeploys automatically when you push to the branch you chose (e.g. `main`).
 
-1. Commit and push your changes:
+**If your repo root has both `docs/` and `Cursor-Onboarding/cursor-onboarding-kit/docs/`:** the live site (when Pages is set to **docs**) serves from root **docs/** only. So after editing files in the kit, sync them into root **docs/** before committing:
+
+1. From the **repo root** (the folder that contains `Cursor-Onboarding` and `docs`), run:
+   ```bash
+   ./sync-docs-for-pages.sh
+   ```
+   This copies `Cursor-Onboarding/cursor-onboarding-kit/docs/` → `docs/` so the live site gets your changes.
+
+2. Commit and push (from repo root):
    ```bash
    cd /path/to/your/repo
-   git add -A
+   git add docs Cursor-Onboarding/cursor-onboarding-kit/docs
    git commit -m "Update onboarding"
    git push origin main
    ```
-2. Wait **1–2 minutes**. The "Last deployment" time on the Pages settings will update.
-3. Hard-refresh the site (e.g. Ctrl+Shift+R or Cmd+Shift+R) to avoid cache.
+3. Wait **1–2 minutes**. The "Last deployment" time on the Pages settings will update.
+4. Hard-refresh the site (e.g. Ctrl+Shift+R or Cmd+Shift+R) to avoid cache.
 
 If it still shows an old deployment after a few minutes, check that you pushed to the correct branch and that Pages is set to that branch.
 
