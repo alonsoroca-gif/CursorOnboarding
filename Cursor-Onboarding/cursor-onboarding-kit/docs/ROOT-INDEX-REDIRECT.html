@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0; url=./docs/">
+  <title>Cursor Onboarding</title>
+  <script>
+    // Try app locations (relative to repo root); first match wins
+    var paths = ['docs/', 'cursor-onboarding-kit/', 'Cursor-Onboarding/cursor-onboarding-kit/docs/'];
+    var i = 0;
+    function tryNext() {
+      if (i >= paths.length) return;
+      window.location.href = paths[i];
+      i++;
+    }
+    window.onerror = tryNext;
+    window.location.href = paths[0];
+  </script>
+</head>
+<body>
+  <p>Redirecting to <a href="docs/">Cursor Onboarding</a>…</p>
+  <p>If you stay here, <a href="cursor-onboarding-kit/">try this link</a> or <a href="Cursor-Onboarding/cursor-onboarding-kit/docs/">this one</a>.</p>
+</body>
+</html>
