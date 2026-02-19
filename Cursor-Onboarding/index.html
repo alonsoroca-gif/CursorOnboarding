@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cursor Onboarding</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background: #f7f7f8;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .container { max-width: 520px; width: 100%; text-align: center; }
+    .logo { width: 64px; height: 64px; margin: 0 auto 20px; display: block; object-fit: contain; }
+    h1 { font-size: 1.75rem; font-weight: 600; margin: 0 0 8px; }
+    .subtitle { font-size: 1rem; color: #6b6b6b; margin: 0 0 32px; line-height: 1.5; }
+    .paths { display: flex; flex-direction: column; gap: 16px; }
+    .path-link {
+      display: block;
+      padding: 20px 24px;
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 16px;
+      text-decoration: none;
+      color: #1a1a1a;
+      text-align: left;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .path-link:hover {
+      border-color: #ccc;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .path-link .path-title { font-size: 1.1rem; font-weight: 600; margin: 0 0 6px; }
+    .path-link .path-desc { font-size: 0.9rem; color: #6b6b6b; margin: 0; line-height: 1.45; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="Cursor-Onboarding/cursor-onboarding-kit/docs/screenshots/.localized/APP_ICON_2D.png" alt="" class="logo">
+    <h1>Cursor Onboarding</h1>
+    <p class="subtitle">Choose your path. We'll take you to the right guide.</p>
+    <div class="paths">
+      <a href="Cursor-Onboarding/cursor-onboarding-kit/docs/setup-chat.html" class="path-link">
+        <span class="path-title">I'm completely new</span>
+        <span class="path-desc">Download, install, and run your first Cursor steps. Best if you haven't used Cursor yet.</span>
+      </a>
+      <a href="Cursor-Onboarding/cursor-onboarding-kit/docs/onboarding-pm.html" class="path-link">
+        <span class="path-title">I'm a PM with some experience</span>
+        <span class="path-desc">High-value features for product managers: Chat for drafting, Composer for multi-part edits, reading code and PRs. Moderate to high difficulty.</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
