@@ -37,8 +37,8 @@
       from { transform: rotateY(0deg); }
       to { transform: rotateY(360deg); }
     }
-    h1 { font-size: 1.75rem; font-weight: 600; margin: 0 0 8px; color: #fff; }
-    .subtitle { font-size: 1rem; color: #8e8e93; margin: 0 0 32px; line-height: 1.5; }
+    h1 { font-size: 1.75rem; font-weight: 600; margin: 0 0 8px; color: #fff; font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace; }
+    .subtitle { font-size: 1rem; color: #8e8e93; margin: 0 0 32px; line-height: 1.5; font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace; }
     .paths { display: flex; flex-direction: column; gap: 12px; }
     .path-link {
       display: block;
@@ -80,8 +80,8 @@
       font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
       font-size: 0.9rem;
       line-height: 1.5;
-      color: #fff;
-      opacity: 0.22;
+      color: #ffffff;
+      opacity: 0.24;
       max-width: 260px;
       white-space: pre-wrap;
       word-break: break-all;
@@ -140,70 +140,82 @@
       var el1 = document.getElementById('code-snippet');
       var el2 = document.getElementById('code-snippet-2');
       if (!el1) return;
-      var snippets = [
+      var snippetsLeft = [
         'function hello() {\n  return "Cursor";\n}',
         'const config = {\n  theme: "dark"\n};',
         '// Build something\nconst app = () => {};'
       ];
-      var idx = 0;
-      var text = snippets[0];
-      var i = 0;
-      var cursors = [el1.querySelector('.cursor'), el2 ? el2.querySelector('.cursor') : null];
-      var typing = true;
-      var lastTick = 0;
-      var nextCharAt = 0;
+      var snippetsRight = [
+        'import { useState } from "react";',
+        'export default function App() {\n  return null;\n}',
+        '// TODO: add tests\ndescribe("app", () => {});'
+      ];
       var charDelay = 90;
       var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var rafId = null;
 
-      function updateEl(el, cursor, str) {
-        if (!el) return;
-        el.textContent = str;
-        if (cursor) el.appendChild(cursor);
+      function makeTyper(el, snippets) {
+        var cursor = el ? el.querySelector('.cursor') : null;
+        var idx = 0, text = snippets[0], i = 0, typing = true, nextCharAt = 0;
+        return {
+          update: function(str) {
+            if (!el) return;
+            el.textContent = str;
+            if (cursor) el.appendChild(cursor);
+          },
+          tick: function(now) {
+            if (typing) {
+              if (i <= text.length) {
+                if (now >= nextCharAt) {
+                  this.update(text.slice(0, i));
+                  i++;
+                  nextCharAt = now + charDelay;
+                }
+              } else {
+                typing = false;
+                nextCharAt = now + 2400;
+              }
+            } else {
+              if (now >= nextCharAt) {
+                idx = (idx + 1) % snippets.length;
+                text = snippets[idx];
+                i = 0;
+                typing = true;
+                nextCharAt = now + 700;
+              }
+            }
+          },
+          reset: function() {
+            idx = 0;
+            text = snippets[0];
+            i = 0;
+            typing = true;
+            nextCharAt = 0;
+            this.update('');
+          }
+        };
       }
 
+      var typer1 = makeTyper(el1, snippetsLeft);
+      var typer2 = el2 ? makeTyper(el2, snippetsRight) : null;
+
       function resetAndStart() {
-        idx = 0;
-        text = snippets[0];
-        i = 0;
-        typing = true;
-        nextCharAt = 0;
-        updateEl(el1, cursors[0], '');
-        if (el2) updateEl(el2, cursors[1], '');
+        typer1.reset();
+        if (typer2) typer2.reset();
         if (rafId) cancelAnimationFrame(rafId);
         rafId = requestAnimationFrame(tick);
       }
 
       function tick(now) {
         rafId = requestAnimationFrame(tick);
+        now = now || Date.now();
         if (reducedMotion) {
-          updateEl(el1, cursors[0], '');
-          if (el2) updateEl(el2, cursors[1], '');
+          typer1.update('');
+          if (typer2) typer2.update('');
           return;
         }
-        lastTick = now || Date.now();
-        if (typing) {
-          if (i <= text.length) {
-            if (lastTick >= nextCharAt) {
-              var str = text.slice(0, i);
-              updateEl(el1, cursors[0], str);
-              if (el2) updateEl(el2, cursors[1], str);
-              i++;
-              nextCharAt = lastTick + charDelay;
-            }
-          } else {
-            typing = false;
-            nextCharAt = lastTick + 2400;
-          }
-        } else {
-          if (lastTick >= nextCharAt) {
-            idx = (idx + 1) % snippets.length;
-            text = snippets[idx];
-            i = 0;
-            typing = true;
-            nextCharAt = lastTick + 700;
-          }
-        }
+        typer1.tick(now);
+        if (typer2) typer2.tick(now);
       }
       resetAndStart();
       window.addEventListener('pageshow', function(e) {
