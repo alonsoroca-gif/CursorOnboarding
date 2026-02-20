@@ -64,32 +64,39 @@
     .path-link .path-title { font-size: 1.05rem; font-weight: 600; margin: 0 0 6px; color: #fff; }
     .path-link .path-desc { font-size: 0.9rem; color: #8e8e93; margin: 0; line-height: 1.45; }
     /* Background: distant typing / cursor blink */
+    body { position: relative; }
+    .container { position: relative; z-index: 1; }
     .code-bg {
       position: fixed;
       inset: 0;
-      z-index: -1;
+      z-index: 0;
       overflow: hidden;
       pointer-events: none;
     }
     .code-snippet {
       position: absolute;
-      bottom: 20%;
-      left: 12%;
       font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       line-height: 1.5;
-      color: #6e6e6e;
-      opacity: 0.14;
-      filter: blur(1px);
-      max-width: 280px;
+      color: #8a8a8a;
+      opacity: 0.28;
+      max-width: 260px;
       white-space: pre-wrap;
       word-break: break-all;
+    }
+    .code-snippet.left {
+      bottom: 18%;
+      left: 10%;
+    }
+    .code-snippet.right {
+      top: 22%;
+      right: 10%;
     }
     .code-snippet .cursor {
       display: inline-block;
       width: 6px;
       height: 1em;
-      background: #6e6e6e;
+      background: #8a8a8a;
       margin-left: 2px;
       vertical-align: text-bottom;
       animation: cursor-blink 1s step-end infinite;
@@ -99,13 +106,14 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .code-snippet .cursor { animation: none; opacity: 0.5; }
-      .code-snippet { opacity: 0.08; }
+      .code-snippet { opacity: 0.12; }
     }
   </style>
 </head>
 <body>
   <div class="code-bg" aria-hidden="true">
-    <pre class="code-snippet" id="code-snippet"><span class="cursor"></span></pre>
+    <pre class="code-snippet left" id="code-snippet"><span class="cursor"></span></pre>
+    <pre class="code-snippet right" id="code-snippet-2"><span class="cursor"></span></pre>
   </div>
   <div class="container">
     <span class="logo-wrap"><img src="screenshots/cursor-logo.png" alt="Cursor" class="logo"></span>
@@ -128,8 +136,9 @@
   </div>
   <script>
     (function() {
-      var el = document.getElementById('code-snippet');
-      if (!el) return;
+      var el1 = document.getElementById('code-snippet');
+      var el2 = document.getElementById('code-snippet-2');
+      if (!el1) return;
       var snippets = [
         'function hello() {\n  return "Cursor";\n}',
         'const config = {\n  theme: "dark"\n};',
@@ -138,21 +147,32 @@
       var idx = 0;
       var text = snippets[0];
       var i = 0;
-      var cursor = el.querySelector('.cursor');
+      var cursors = [el1.querySelector('.cursor'), el2 ? el2.querySelector('.cursor') : null];
       var typing = true;
       var lastTick = 0;
       var nextCharAt = 0;
       var charDelay = 90;
       var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+      function updateEl(el, cursor, str) {
+        if (!el) return;
+        el.textContent = str;
+        if (cursor) el.appendChild(cursor);
+      }
+
       function tick(now) {
-        if (reducedMotion) { el.textContent = ''; if (cursor) el.appendChild(cursor); return; }
+        if (reducedMotion) {
+          updateEl(el1, cursors[0], '');
+          if (el2) updateEl(el2, cursors[1], '');
+          return;
+        }
         lastTick = now || Date.now();
         if (typing) {
           if (i <= text.length) {
             if (lastTick >= nextCharAt) {
-              el.textContent = text.slice(0, i);
-              if (cursor) el.appendChild(cursor);
+              var str = text.slice(0, i);
+              updateEl(el1, cursors[0], str);
+              if (el2) updateEl(el2, cursors[1], str);
               i++;
               nextCharAt = lastTick + charDelay;
             }
