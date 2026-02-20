@@ -23,6 +23,7 @@
       margin: 0 auto 24px;
       width: 72px;
       height: 72px;
+      perspective: 320px;
     }
     .logo {
       width: 72px;
@@ -30,11 +31,11 @@
       display: block;
       object-fit: contain;
       filter: brightness(1.05);
-      animation: logo-spin 12s linear infinite;
+      animation: logo-spin-y 8s linear infinite;
     }
-    @keyframes logo-spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+    @keyframes logo-spin-y {
+      from { transform: rotateY(0deg); }
+      to { transform: rotateY(360deg); }
     }
     h1 { font-size: 1.75rem; font-weight: 600; margin: 0 0 8px; color: #fff; }
     .subtitle { font-size: 1rem; color: #8e8e93; margin: 0 0 32px; line-height: 1.5; }
