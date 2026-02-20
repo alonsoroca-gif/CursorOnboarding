@@ -154,6 +154,7 @@
       var nextCharAt = 0;
       var charDelay = 90;
       var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var rafId = null;
 
       function updateEl(el, cursor, str) {
         if (!el) return;
@@ -161,7 +162,20 @@
         if (cursor) el.appendChild(cursor);
       }
 
+      function resetAndStart() {
+        idx = 0;
+        text = snippets[0];
+        i = 0;
+        typing = true;
+        nextCharAt = 0;
+        updateEl(el1, cursors[0], '');
+        if (el2) updateEl(el2, cursors[1], '');
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(tick);
+      }
+
       function tick(now) {
+        rafId = requestAnimationFrame(tick);
         if (reducedMotion) {
           updateEl(el1, cursors[0], '');
           if (el2) updateEl(el2, cursors[1], '');
@@ -190,9 +204,11 @@
             nextCharAt = lastTick + 700;
           }
         }
-        requestAnimationFrame(tick);
       }
-      requestAnimationFrame(tick);
+      resetAndStart();
+      window.addEventListener('pageshow', function(e) {
+        if (e.persisted) resetAndStart();
+      });
     })();
   </script>
 </body>
