@@ -140,6 +140,8 @@
       var el1 = document.getElementById('code-snippet');
       var el2 = document.getElementById('code-snippet-2');
       if (!el1) return;
+      el1.style.color = '#ffffff';
+      if (el2) el2.style.color = '#ffffff';
       var snippetsLeft = [
         'function hello() {\n  return "Cursor";\n}',
         'const config = {\n  theme: "dark"\n};',
@@ -160,6 +162,7 @@
         return {
           update: function(str) {
             if (!el) return;
+            el.style.color = '#ffffff';
             el.textContent = str;
             if (cursor) el.appendChild(cursor);
           },
