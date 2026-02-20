@@ -75,28 +75,29 @@
     }
     .code-snippet {
       position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
       font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
-      font-size: 0.75rem;
+      font-size: 0.9rem;
       line-height: 1.5;
-      color: #8a8a8a;
-      opacity: 0.28;
+      color: #fff;
+      opacity: 0.22;
       max-width: 260px;
       white-space: pre-wrap;
       word-break: break-all;
     }
     .code-snippet.left {
-      bottom: 18%;
-      left: 10%;
+      left: 8%;
     }
     .code-snippet.right {
-      top: 22%;
-      right: 10%;
+      right: 8%;
+      left: auto;
     }
     .code-snippet .cursor {
       display: inline-block;
       width: 6px;
       height: 1em;
-      background: #8a8a8a;
+      background: #fff;
       margin-left: 2px;
       vertical-align: text-bottom;
       animation: cursor-blink 1s step-end infinite;
