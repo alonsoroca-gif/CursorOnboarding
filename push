@@ -1,13 +1,17 @@
 #!/bin/bash
 # Sync docs, commit, and push to update GitHub Pages. Run from repo root: ./push [optional commit message]
+# This is the single way to deploy: sync kit → docs → root, then commit and push so the live site updates.
 set -e
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 cd "$ROOT"
 MSG="${1:-Update onboarding and sync docs for GitHub Pages}"
-echo "→ Syncing kit docs → root docs..."
+echo "→ Syncing kit docs → root docs and repo root..."
 "$ROOT/sync-docs-for-pages.sh"
-echo "→ Staging docs and root app..."
-git add docs Cursor-Onboarding/cursor-onboarding-kit/docs index.html onboarding-pm.html onboarding-pm.js setup-chat.html setup-chat.js cursor-rules.html cursor-rules.js screenshots .nojekyll 2>/dev/null || true
+echo "→ Staging everything that affects the live site..."
+git add docs/
+git add Cursor-Onboarding/cursor-onboarding-kit/docs/
+git add index.html onboarding-pm.html onboarding-pm.js setup-chat.html setup-chat.js cursor-rules.html cursor-rules.js
+git add screenshots/ .nojekyll 2>/dev/null || true
 echo "→ Committing: $MSG"
 git commit -m "$MSG" || { echo "Nothing to commit (working tree clean?)."; exit 0; }
 echo "→ Pushing to origin main..."
