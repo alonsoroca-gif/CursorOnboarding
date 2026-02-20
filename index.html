@@ -73,15 +73,15 @@
       overflow: hidden;
       pointer-events: none;
     }
-    .code-snippet {
+    .code-bg .code-snippet {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
       font-size: 0.9rem;
       line-height: 1.5;
-      color: #ffffff;
-      opacity: 0.24;
+      color: #ffffff !important;
+      opacity: 0.28;
       max-width: 260px;
       white-space: pre-wrap;
       word-break: break-all;
@@ -93,11 +93,11 @@
       right: 8%;
       left: auto;
     }
-    .code-snippet .cursor {
+    .code-bg .code-snippet .cursor {
       display: inline-block;
       width: 6px;
       height: 1em;
-      background: #fff;
+      background: #ffffff !important;
       margin-left: 2px;
       vertical-align: text-bottom;
       animation: cursor-blink 1s step-end infinite;
